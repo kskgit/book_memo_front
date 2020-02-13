@@ -1,6 +1,7 @@
 
 export default {
   mode: 'spa',
+  srcDir: 'app',
   server: {
     port: 9010,
   },
