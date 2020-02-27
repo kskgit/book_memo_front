@@ -1,72 +1,46 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        front
-      </h1>
-      <h2 class="subtitle">
-        My astounding Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+<div class="container">
+  <b-form inline>
+    <label class="sr-only" for="inline-form-input-name">Name</label>
+    <b-input
+      id="inline-form-input-name"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      placeholder="Jane Doe"
+      v-model="query"
+    ></b-input>
+
+    <label class="sr-only" for="inline-form-input-username">Username</label>
+    <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+      <b-input id="inline-form-input-username" placeholder="Username"></b-input>
+    </b-input-group>
+
+    <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
+
+    <b-button variant="primary" @click="getResult">Save</b-button>
+  </b-form>
+</div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
+import { apiGet } from '~/api/config';
 export default {
-  components: {
-    Logo
+  components: {},
+  data: function () {
+    return {
+      query: ''
+    }
+  },
+  methods:{
+    getResult(paramsData = {}){
+      const params = paramsData;
+      const url = `https://www.googleapis.com/books/v1/volumes?q=search`;
+      apiGet( + this.query).then(response => {
+        console.log(response.data);
+        this.items = response.data.items;
+      });
+    }
   }
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
+<style></style>

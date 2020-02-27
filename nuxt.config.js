@@ -42,6 +42,8 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    'bootstrap-vue/nuxt',
+    // '@/plugins/api.js',
   ],
   /*
   ** Build configuration
