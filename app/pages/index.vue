@@ -1,43 +1,59 @@
 <template>
 <div class="container">
   <b-form inline>
-    <label class="sr-only" for="inline-form-input-name">Name</label>
     <b-input
       id="inline-form-input-name"
       class="mb-2 mr-sm-2 mb-sm-0"
-      placeholder="Jane Doe"
+      placeholder="タイトル"
       v-model="query"
     ></b-input>
 
-    <label class="sr-only" for="inline-form-input-username">Username</label>
-    <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-      <b-input id="inline-form-input-username" placeholder="Username"></b-input>
-    </b-input-group>
-
-    <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
-
-    <b-button variant="primary" @click="getResult">Save</b-button>
+    <b-button variant="primary" @click="getResult">検索</b-button>
   </b-form>
+  <div v-for="(item, index) in items" :key="index">>
+    <b-card
+      :title="item.volumeInfo.title"
+      :img-src="imageUrl(item)"
+      img-alt="Image"
+      img-top
+      tag="article"
+      style="max-width: 20rem;"
+      class="mb-2"
+    >
+      <b-card-text>
+        Some quick example text to build on the card title and make up the bulk of the card's content.
+      </b-card-text>
+
+      <b-button href="#" variant="primary">Go somewhere</b-button>
+    </b-card>
+  </div>
+
 </div>
 </template>
 
 <script>
+import axios from 'axios';
 import { apiGet } from '~/api/config';
 export default {
   components: {},
   data: function () {
     return {
-      query: ''
+      query: '',
+      items: '',
     }
   },
+  computed: {},
   methods:{
-    getResult(paramsData = {}){
-      const params = paramsData;
-      const url = `https://www.googleapis.com/books/v1/volumes?q=search`;
-      apiGet( + this.query).then(response => {
+    getResult(){
+      axios.get("https://www.googleapis.com/books/v1/volumes?q=search" + this.query).then(response => {
         console.log(response.data);
         this.items = response.data.items;
       });
+    },
+    imageUrl(book) {
+      if (book.volumeInfo.imageLinks) {
+        return book.volumeInfo.imageLinks.thumbnail;
+      }
     }
   }
 }

@@ -43,6 +43,7 @@ export default {
   */
   modules: [
     'bootstrap-vue/nuxt',
+    '@nuxtjs/axios',
     // '@/plugins/api.js',
   ],
   /*
