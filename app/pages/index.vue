@@ -10,23 +10,27 @@
 
     <b-button variant="primary" @click="getResult">検索</b-button>
   </b-form>
-  <div v-for="(item, index) in items" :key="index">>
-    <b-card
-      :title="item.volumeInfo.title"
-      :img-src="imageUrl(item)"
-      img-alt="Image"
-      img-top
-      tag="article"
-      style="max-width: 20rem;"
-      class="mb-2"
-    >
-      <b-card-text>
-        Some quick example text to build on the card title and make up the bulk of the card's content.
-      </b-card-text>
+  <b-row>
+    <b-col cols="6" v-for="(item, index) in items" :key="index">
+      <b-card
+        :title="item.volumeInfo.title"
+        :img-src="imageUrl(item)"
+        img-alt="Image"
+        img-top
+        tag="article"
+        style="max-width: 20rem;"
+      >
+        <b-card-text v-if="item.volumeInfo.subtitle">
+          {{item.volumeInfo.subtitle}}
+        </b-card-text>
+        <b-card-text v-for="(author, authorIndex) in item.volumeInfo.authors" :key="authorIndex">
+          {{author}} 著
+        </b-card-text>
 
-      <b-button href="#" variant="primary">Go somewhere</b-button>
-    </b-card>
-  </div>
+        <b-button href="#" variant="primary">読んでるリストに追加する</b-button>
+      </b-card>
+    </b-col>
+  </b-row>
 
 </div>
 </template>
@@ -45,7 +49,7 @@ export default {
   computed: {},
   methods:{
     getResult(){
-      axios.get("https://www.googleapis.com/books/v1/volumes?q=search" + this.query).then(response => {
+      axios.get("https://www.googleapis.com/books/v1/volumes?q=search" + this.query + "&maxResults=40").then(response => {
         console.log(response.data);
         this.items = response.data.items;
       });
