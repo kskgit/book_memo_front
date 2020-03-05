@@ -1,4 +1,5 @@
-
+const environment = process.env.NODE_ENV || 'development';
+const envSet = require(`./app/config/env.${environment}.js`);
 export default {
   mode: 'spa',
   srcDir: 'app',
@@ -49,6 +50,7 @@ export default {
   /*
   ** Build configuration
   */
+  env: envSet,
   build: {
     /*
     ** You can extend webpack config here

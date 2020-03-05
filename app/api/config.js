@@ -8,9 +8,13 @@ const api = axios.create({
 const apiGet = ({ url, params = {}, headers = {} }) =>
   api
     .get(url, {
-      headers: headers,
       params: params,
     })
+    .catch(err => err.response || { noResponse: true });
+
+const apiPost = ({ url, params = {}, headers = {} }) =>
+  api
+    .post(url, params)
     .catch(err => err.response || { noResponse: true });
 
 export {
@@ -21,7 +25,7 @@ export {
     // apiDelete,
     // apiHead,
     // apiOptions,
-    // apiPost,
+  apiPost,
     // apiPut,
     // apiPatch,
 };
