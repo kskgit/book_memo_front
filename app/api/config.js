@@ -5,16 +5,19 @@ const api = axios.create({
     timeout: 160000,
 });
 
-const apiGet = ({ url, params = {}, headers = {} }) =>
+const apiGet = (url, params = {}, headers = {}) =>
   api
     .get(url, {
       params: params,
     })
     .catch(err => err.response || { noResponse: true });
 
-const apiPost = ({ url, params = {}, headers = {} }) =>
+const apiDelete = (url, params = {}, headers = {}) =>
   api
-    .post(url, params)
+    .delete(url, {
+      headers: headers,
+      params: params,
+    })
     .catch(err => err.response || { noResponse: true });
 
 export {
@@ -22,10 +25,9 @@ export {
     // apiRequest,
   apiGet,
     // apiGetBlob,
-    // apiDelete,
+  apiDelete,
     // apiHead,
     // apiOptions,
-  apiPost,
     // apiPut,
     // apiPatch,
 };
