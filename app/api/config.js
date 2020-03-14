@@ -20,14 +20,15 @@ const apiDelete = (url, params = {}, headers = {}) =>
     })
     .catch(err => err.response || { noResponse: true });
 
+const apiPost = (url, params = {}, headers = {}) =>
+  api
+    .post(url, params, {
+      headers: headers,
+    })
+    .catch(err => err.response || { noResponse: true });
+
 export {
-    // api,
-    // apiRequest,
   apiGet,
-    // apiGetBlob,
+  apiPost,
   apiDelete,
-    // apiHead,
-    // apiOptions,
-    // apiPut,
-    // apiPatch,
 };

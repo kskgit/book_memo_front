@@ -54,7 +54,6 @@ export default {
       });
       // id検索
       axios.get("https://www.googleapis.com/books/v1/volumes/L2FyQgAACAAJ").then(response => {
-        console.log(response.data);
         this.items = response.data.items;
       });
     },
@@ -69,7 +68,7 @@ export default {
       const params = {
         volume_id: book.id
       }
-      apiPost({ url, params });
+      apiPost(url, params);
     }
   }
 }
