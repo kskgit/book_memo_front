@@ -1,25 +1,6 @@
 <template>
 <div class="container">
   <Header />
-  <b-form class="m-1" inline>
-    <b-col cols="8">
-      <b-input
-        id="inline-form-input-name"
-        class="mb-2 mr-sm-2 mb-sm-0"
-        placeholder="タイトル"
-        v-model="query"
-      ></b-input>
-    </b-col>
-    <b-col cols="4">
-      <b-button
-        class="mb-2 mr-sm-2 mb-sm-0"
-        variant="primary"
-        @click="getResult"
-      >
-        検索
-      </b-button>
-    </b-col>
-  </b-form>
   <b-row>
     <b-col cols="12" sm="6" lg="4" v-for="(item, index) in items" :key="index">
       <b-card
@@ -36,8 +17,9 @@
         <b-card-text v-for="(author, authorIndex) in item.volumeInfo.authors" :key="authorIndex">
           {{author}} 著
         </b-card-text>
-
-        <b-button href="#" variant="primary" @click="addReadingList(item)">読んでるリストに追加する</b-button>
+        <b-button href="#" variant="primary" @click="addHistory(item)">読書メモを入力する</b-button>
+        <b-button href="#" variant="primary" @click="addReadList(item)">読んだリストに追加する</b-button>
+        <b-button href="#" variant="primary" @click="deleteList(item)">削除</b-button>
       </b-card>
     </b-col>
   </b-row>
@@ -48,34 +30,48 @@
 <script>
 import axios from 'axios';
 import Header from '@/components/Header.vue';
-import { apiPost } from '~/api/config';
+import { apiGet } from '~/api/config';
 export default {
   components: { Header },
+  created: function() {
+    this.index();
+  },
   data: function () {
     return {
       query: '',
-      items: '',
+      items: [],
     }
   },
   computed: {},
   methods:{
-    getResult(){
-      axios.get("https://www.googleapis.com/books/v1/volumes?q=search" + this.query + "&maxResults=40").then(response => {
-        this.items = response.data.items;
-      });
+    // 一覧取得
+    async index(){
+      const url = 'books';
+      let array = [];
+      await apiGet(url).then(res => {
+        array = res.data;
+      })
+      // id検索
+      array.map(val => {
+        axios.get(`https://www.googleapis.com/books/v1/volumes/${val.volume_id}`).then(res => {
+          this.items.push(res.data);
+        });
+      })
     },
     imageUrl(book) {
       if (book.volumeInfo.imageLinks) {
         return book.volumeInfo.imageLinks.thumbnail;
       }
     },
-    addReadingList(book) {
-      const url = 'books';
-      const params = {
-        volume_id: book.id
-      }
-      apiPost(url, params);
-    }
+    // 履歴を追加
+    addHistory(book) {
+    },
+    // 読んだリストに追加
+    addReadList(book) {
+    },
+    // 読んでるリストから削除
+    deleteList(book) {
+    },
   }
 }
 </script>
