@@ -17,7 +17,7 @@
         <b-card-text v-for="(author, authorIndex) in item.volumeInfo.authors" :key="authorIndex">
           {{author}} 著
         </b-card-text>
-        <b-button href="#" variant="primary" @click="addHistory(item)">読書メモを入力する</b-button>
+        <b-button href="#" variant="primary" @click="addHistory(item)">読書メモ一覧</b-button>
         <b-button href="#" variant="primary" @click="addReadList(item)">読んだリストに追加する</b-button>
         <b-button href="#" variant="primary" @click="deleteList(item)">削除</b-button>
       </b-card>
