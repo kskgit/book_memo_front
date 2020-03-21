@@ -25,6 +25,13 @@
     </b-button>
 
     <b-button
+      v-if="showReadButton"
+      @click="$emit('back-reading-list', item.bookId, false)"
+    >
+      読んでるリストに追加する
+    </b-button>
+
+    <b-button
       v-if="showReadingButton"
       @click="goMemoIndex()"
     >
@@ -39,7 +46,7 @@
     </b-button>
 
     <b-button
-      v-if="showReadingButton"
+      v-if="showListButton"
       @click="$emit('delete-list', item.bookId)"
     >
       削除
@@ -71,7 +78,13 @@ export default {
       return this.$route.path === '/';
     },
     showReadingButton() {
-      return this.$route.path === '/list' && !sessionStorage.getItem('IS_READED');
+      return this.$route.path === '/list' && !this.$store.getters['getIsReaded'];
+    },
+    showReadButton() {
+      return this.$route.path === '/list' && this.$store.getters['getIsReaded'];
+    },
+    showListButton() {
+      return this.$route.path === '/list';
     },
 },
   methods:{
@@ -81,7 +94,8 @@ export default {
       }
     },
     goMemoIndex() {
-      this.$router.push('/' + to);
+      const url = 'book/' + this.item.bookId + '/memo'
+      this.$router.push({ path: url, query: { id: this.item.id } });
     }
   }
 }

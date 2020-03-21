@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <Header @get-index = 'getIndex'/>
-  <P v-if="isReaded === 'true'">読んだ本</P>
+  <P v-if="isReaded">読んだ本</P>
   <P v-else>読んでる本</P>
   <b-row>
     <b-col
@@ -11,6 +11,7 @@
     >
       <bookBlock
         :item="item"
+        @back-reading-list="backReadingList"
         @add-read-list="addReadList"
         @delete-list="deleteList"
       ></bookBlock>
@@ -40,7 +41,7 @@ export default {
   methods:{
     // 一覧取得
     async getIndex(){
-      this.isReaded = sessionStorage.getItem('IS_READED');
+      this.isReaded = this.$store.getters['getIsReaded'];
       const url = 'books';
       const params = {
         is_readed: this.isReaded,
@@ -66,9 +67,22 @@ export default {
       }
       const url = 'books/' + bookId;
       apiPut(url, params).then(res => {
-        sessionStorage.setItem('IS_READED', true);
+        this.$store.dispatch('setIsReaded', true);
         this.getIndex();
       })
+    },
+    backReadingList(bookId, isReaded) {
+      const url = 'books/' + bookId;
+      const params = {
+        id: bookId,
+        is_readed: isReaded
+      }
+      apiPut(url, params).then(res => {
+        if (res.status = 200) {
+          this.$store.dispatch('setIsReaded', isReaded)
+          this.getIndex();
+        }
+      });
     },
     // 読んでるリストから削除
     deleteList(bookId) {
