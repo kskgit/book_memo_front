@@ -27,8 +27,16 @@ const apiPost = (url, params = {}, headers = {}) =>
     })
     .catch(err => err.response || { noResponse: true });
 
+const apiPut = (url, params = {}, headers = {}) =>
+  api
+    .put(url, params, {
+      headers: headers,
+    })
+    .catch(err => err.response || { noResponse: true });
+
 export {
   apiGet,
   apiPost,
   apiDelete,
+  apiPut,
 };

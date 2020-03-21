@@ -21,24 +21,14 @@
     </b-col>
   </b-form>
   <b-row>
-    <b-col cols="12" sm="6" lg="4" v-for="(item, index) in items" :key="index">
-      <b-card
-        :title="item.volumeInfo.title"
-        :img-src="imageUrl(item)"
-        img-alt="Image"
-        img-top
-        tag="article"
-        style="max-width: 20rem;"
-      >
-        <b-card-text v-if="item.volumeInfo.subtitle">
-          {{item.volumeInfo.subtitle}}
-        </b-card-text>
-        <b-card-text v-for="(author, authorIndex) in item.volumeInfo.authors" :key="authorIndex">
-          {{author}} 著
-        </b-card-text>
-
-        <b-button href="#" variant="primary" @click="addReadingList(item)">読んでるリストに追加する</b-button>
-      </b-card>
+    <b-col
+      cols="12" sm="6" lg="4"
+      v-for="(item, index) in items" :key="index"
+    >
+      <bookBlock
+        :item="item"
+        @add-reading-list = "addReadingList"
+      ></bookBlock>
     </b-col>
   </b-row>
 
@@ -48,9 +38,10 @@
 <script>
 import axios from 'axios';
 import Header from '@/components/Header.vue';
+import bookBlock from '@/components/bookBlock.vue';
 import { apiPost } from '~/api/config';
 export default {
-  components: { Header },
+  components: { Header,bookBlock },
   data: function () {
     return {
       query: '',
@@ -69,12 +60,16 @@ export default {
         return book.volumeInfo.imageLinks.thumbnail;
       }
     },
-    addReadingList(book) {
+    addReadingList(volumeId) {
       const url = 'books';
       const params = {
-        volume_id: book.id
+        volume_id: volumeId
       }
-      apiPost(url, params);
+      apiPost(url, params).then(res => {
+        if (res.status = 201) {
+          this.$router.push('/reading');
+        }
+      });
     }
   }
 }

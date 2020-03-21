@@ -21,8 +21,7 @@ export default {
 	methods:{
 		// 一覧取得
 		async getIndex(){
-			console.log(this.$route.params.id);
-			const url = 'histories/' + this.$route.params.id;
+			const url = 'histories/' + this.$route.params.book_id;
 			let array = [];
 			await apiGet(url).then(res => {
 				this.items = res.data;
