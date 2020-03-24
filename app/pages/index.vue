@@ -60,7 +60,7 @@ export default {
         return book.volumeInfo.imageLinks.thumbnail;
       }
     },
-    addReadingList(volumeI, isReadedd) {
+    addReadingList(volumeId, isReadedd) {
       const url = 'books';
       const params = {
         volume_id: volumeId

@@ -41,7 +41,7 @@ export default {
   methods:{
     // 一覧取得
     async getIndex(){
-      this.isReaded = this.$store.getters['getIsReaded'];
+      this.isReaded = this.$store.getters['getIsReaded'] ? this.$store.getters['getIsReaded']: false;
       const url = 'books';
       const params = {
         is_readed: this.isReaded,

@@ -18,6 +18,13 @@
 
     <!-- ボタン -->
     <b-button
+      v-if="showListButton"
+      @click="goMemoIndex()"
+    >
+      読書メモ一覧
+    </b-button>
+
+    <b-button
       v-if="showIndexButton"
       @click="$emit('add-reading-list', item.id)"
     >
@@ -29,13 +36,6 @@
       @click="$emit('back-reading-list', item.bookId, false)"
     >
       読んでるリストに追加する
-    </b-button>
-
-    <b-button
-      v-if="showReadingButton"
-      @click="goMemoIndex()"
-    >
-      読書メモ一覧
     </b-button>
 
     <b-button
@@ -94,7 +94,7 @@ export default {
       }
     },
     goMemoIndex() {
-      const url = 'book/' + this.item.bookId + '/memo'
+      const url = '/book/' + this.item.bookId + '/memo'
       this.$router.push({ path: url, query: { id: this.item.id } });
     }
   }

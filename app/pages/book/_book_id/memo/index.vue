@@ -3,6 +3,11 @@
 		<Header />
     <p>{{book.volumeInfo.title}}</p>
     <p>{{book.volumeInfo.subtitle}}</p>
+    <b-button
+      @click="goCreate()"
+    >
+      読書メモを追加する
+    </b-button>
     <b-table striped hover :items="histories"></b-table>
   </div>
 </template>
@@ -43,7 +48,11 @@ export default {
 			apiGet(url).then(res => {
 				this.histories = res.data;
 			})
-		},
+    },
+    goCreate() {
+      const url = '/book/' + this.$route.params.book_id + '/memo/create'
+      this.$router.push({ path: url, query: { id: this.book.id } });
+    },
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <b-form @submit="onSubmit" @reset="onReset">
+  <div>
     <Header />
     <b-form-group
       id="input-group-1"
@@ -18,7 +18,6 @@
       <b-form-textarea
         id="input-2"
         v-model="form.memo"
-        required
         placeholder="読んだメモ"
       ></b-form-textarea>
     </b-form-group>
@@ -26,33 +25,38 @@
     <b-form-group id="input-group-3" label="ページ:" label-for="input-3">
       <b-form-input
         id="input-3"
-        v-model="form.pageNumber"
+        v-model="form.page_number"
         type="number"
-        required
       ></b-form-input>
     </b-form-group>
-
-    <b-button type="submit" variant="primary">Submit</b-button>
-    <b-button type="reset" variant="danger">Reset</b-button>
-  </b-form>
+    <b-alert variant="success" v-model="isSuccess" show>保存されました</b-alert>
+    <b-button @click="onSubmit" type="submit" variant="primary">保存</b-button>
+    <b-button @reset="onReset" type="reset" variant="danger">クリア</b-button>
+  </div>
 </template>
 
 <script>
+import axios from 'axios';
 import { apiPost } from '~/api/config';
 import Header from '@/components/Header.vue';
 import Datepicker from 'vuejs-datepicker';
 import {ja} from 'vuejs-datepicker/dist/locale'
 export default {
   components: { Header,Datepicker },
+  created: function() {
+    this.form.book_id = this.$route.params.book_id;
+  },
   data: function () {
     return {
       ja: ja,
       form : {
+        book_id: 0,
         date: '',
         memo: '',
-        pageNumber: 0,
+        page_number: 0,
       },
-      DatePickerFormat: 'yyyy-MM-dd'
+      DatePickerFormat: 'yyyy-MM-dd',
+      isSuccess: false
     }
   },
   methods:{
@@ -60,7 +64,15 @@ export default {
       console.log('リセット');
     },
     onSubmit() {
-      console.log('送信');
+      const url = '/histories';
+      const params = {
+        history_form: this.form
+      }
+      apiPost(url, params).then(res => {
+        if (res.status === 201) {
+          this.isSuccess = true;
+        }
+      });
     },
   }
 }
