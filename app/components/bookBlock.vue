@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <b-card
       :title="item.volumeInfo.title"
       :img-src="imageUrl(item)"

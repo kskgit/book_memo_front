@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div>
   <Header />
   <b-form class="m-1" inline>
     <b-col cols="8">

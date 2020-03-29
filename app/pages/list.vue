@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <Header @get-index = 'getIndex'/>
     <P v-if="isReaded">読んだ本</P>
     <P v-else>読んでる本</P>

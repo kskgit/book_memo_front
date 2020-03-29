@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div v-if="imageUrl">
       <img :src="imageUrl" width="510px" height="276px" />
       <!-- 右下ボタン -->

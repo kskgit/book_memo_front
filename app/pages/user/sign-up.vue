@@ -1,7 +1,7 @@
 <template>
   <div class="signup">
     <h2>Sign up</h2>
-    <div class="container" style="width:500px">
+    <div style="width:500px">
       <div class="row align-items-center">
         <div class="col-md-4">アカウント名</div>
         <div class="col-md-3">
