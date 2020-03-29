@@ -1,23 +1,23 @@
 <template>
-<div class="container">
-  <Header @get-index = 'getIndex'/>
-  <P v-if="isReaded">読んだ本</P>
-  <P v-else>読んでる本</P>
-  <b-row>
-    <b-col
-      cols="12" sm="6" lg="4"
-      v-for="(item, index) in items"
-      :key="index"
-    >
-      <bookBlock
-        :item="item"
-        @back-reading-list="backReadingList"
-        @add-read-list="addReadList"
-        @delete-list="deleteList"
-      ></bookBlock>
-    </b-col>
-  </b-row>
-</div>
+  <div class="container">
+    <Header @get-index = 'getIndex'/>
+    <P v-if="isReaded">読んだ本</P>
+    <P v-else>読んでる本</P>
+    <b-row>
+      <b-col
+        cols="12" sm="6" lg="4"
+        v-for="(item, index) in items"
+        :key="index"
+      >
+        <bookBlock
+          :item="item"
+          @back-reading-list="backReadingList"
+          @add-read-list="addReadList"
+          @delete-list="deleteList"
+        ></bookBlock>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>

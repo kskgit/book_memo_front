@@ -29,9 +29,7 @@
         type="number"
       ></b-form-input>
     </b-form-group>
-    <b-alert variant="success" v-model="isSuccess" show>保存されました</b-alert>
     <b-button @click="onSubmit" type="submit" variant="primary">保存</b-button>
-    <b-button @reset="onReset" type="reset" variant="danger">クリア</b-button>
   </div>
 </template>
 
@@ -47,11 +45,6 @@ export default {
       required: true,
       default: {},
     },
-    isSuccess: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
   },
   created: function() {
     this.form.book_id = this.$route.params.book_id;
@@ -63,9 +56,6 @@ export default {
     }
   },
   methods:{
-    onReset() {
-      console.log('リセット');
-    },
     onSubmit() {
       this.$emit('save');
     },

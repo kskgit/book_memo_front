@@ -1,21 +1,21 @@
 <template>
-    <div class="container">
-      <div v-if="imageUrl">
-        <img :src="imageUrl" width="510px" height="276px" />
-        <!-- 右下ボタン -->
-        <div class="img_area_btn_wrap">
-          <button @click="deleteImage">削除</button>
-        </div>
-      </div>
-      <div v-else>
-        <vue-dropzone
-          id="dropzone"
-          :options="dropzoneOptions"
-          @vdropzone-success="successMethod"
-        >
-        </vue-dropzone>
+  <div class="container">
+    <div v-if="imageUrl">
+      <img :src="imageUrl" width="510px" height="276px" />
+      <!-- 右下ボタン -->
+      <div class="img_area_btn_wrap">
+        <button @click="deleteImage">削除</button>
       </div>
     </div>
+    <div v-else>
+      <vue-dropzone
+        id="dropzone"
+        :options="dropzoneOptions"
+        @vdropzone-success="successMethod"
+      >
+      </vue-dropzone>
+    </div>
+  </div>
 </template>
 
 <script>

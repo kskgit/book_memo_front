@@ -3,7 +3,6 @@
     <Header />
     <InputMemo
       v-bind:form.sync="form"
-      :is-success="isSuccess"
       @save = "onSubmit"
     />
   </div>
@@ -27,13 +26,9 @@ export default {
         memo: '',
         page_number: 0,
       },
-      isSuccess: false
     }
   },
   methods:{
-    onReset() {
-      console.log('リセット');
-    },
     onSubmit() {
       const url = '/histories';
       const params = {
@@ -41,7 +36,9 @@ export default {
       }
       apiPost(url, params).then(res => {
         if (res.status === 201) {
-          this.isSuccess = true;
+          const redirect_url = `/book/${this.form.book_id}/memo`
+          console.log('===this.$root.query.id', this.$route.query);
+          this.$router.push({path: redirect_url, query: { id: this.$route.query.id }})
         }
       });
     },
