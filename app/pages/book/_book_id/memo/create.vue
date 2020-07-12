@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <InputMemo
       v-bind:form.sync="form"
       @save = "onSubmit"
@@ -11,10 +10,9 @@
 <script>
 import axios from 'axios';
 import { apiPost } from '~/api/config';
-import Header from '@/components/Header.vue';
 import InputMemo from '@/components/InputMemo.vue';
 export default {
-  components: { Header,InputMemo },
+  components: { InputMemo },
   created: function() {
     this.form.book_id = this.$route.params.book_id;
   },

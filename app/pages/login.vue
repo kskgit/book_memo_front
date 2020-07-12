@@ -35,13 +35,11 @@
 <script>
 import axios from 'axios';
 import firebase from '~/plugins/firebaseConfig'
-// import Header from '@/components/Header.vue';
 // import * as firebase from "firebase/app";
 // import "firebase/auth";
 // import "firebase/firestore";
 
 export default {
-  // components: { Header,bookBlock },
   created: function() {},
   data: function () {
     return {

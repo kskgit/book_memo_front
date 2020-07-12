@@ -1,6 +1,5 @@
 <template>
 <div>
-  <Header />
   <b-form class="m-1" inline>
     <b-col cols="8">
       <b-input
@@ -37,11 +36,10 @@
 
 <script>
 import axios from 'axios';
-import Header from '@/components/Header.vue';
 import bookBlock from '@/components/bookBlock.vue';
 import { apiPost } from '~/api/config';
 export default {
-  components: { Header,bookBlock },
+  components: { bookBlock },
   data: function () {
     return {
       query: '',

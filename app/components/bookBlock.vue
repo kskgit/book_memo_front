@@ -57,7 +57,6 @@
 
 <script>
 import axios from 'axios';
-import Header from '@/components/Header.vue';
 import { apiGet } from '~/api/config';
 export default {
   created: function() {},

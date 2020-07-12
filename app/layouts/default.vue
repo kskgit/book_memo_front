@@ -1,10 +1,18 @@
 <template>
   <div class="top-container">
+    <Header/>
     <b-container>
       <nuxt />
     </b-container>
   </div>
 </template>
+
+<script>
+import Header from '@/components/Header.vue';
+export default {
+  components: { Header },
+}
+</script>
 
 <style>
 html {

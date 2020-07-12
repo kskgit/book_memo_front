@@ -24,7 +24,6 @@
 </template>
 <script>
 import axios from 'axios';
-import Header from '@/components/Header.vue';
 import firebase from '~/plugins/firebaseConfig'
 export default {
   data: function () {

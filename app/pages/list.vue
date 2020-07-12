@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header @get-index = 'getIndex'/>
     <P v-if="isReaded">読んだ本</P>
     <P v-else>読んでる本</P>
     <b-row>
@@ -22,11 +21,10 @@
 
 <script>
 import axios from 'axios';
-import Header from '@/components/Header.vue';
 import bookBlock from '@/components/bookBlock.vue';
 import { apiGet, apiPut, apiDelete } from '~/api/config';
 export default {
-  components: { Header,bookBlock },
+  components: { bookBlock },
   created: function() {
     this.getIndex();
   },

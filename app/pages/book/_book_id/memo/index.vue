@@ -1,6 +1,5 @@
 <template>
   <div v-if="isShow">
-		<Header />
     <p>{{book.volumeInfo.title}}</p>
     <p>{{book.volumeInfo.subtitle}}</p>
     <b-button
@@ -14,10 +13,9 @@
 
 <script>
 import axios from 'axios';
-import Header from '@/components/Header.vue';
 import { apiGet } from '~/api/config';
 export default {
-  components: { Header },
+  components: {},
 	data() {
 		return {
       histories: [],
