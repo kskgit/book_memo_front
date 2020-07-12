@@ -1,18 +1,18 @@
 <template>
   <div>
     <b-card
-      :title="item.volumeInfo.title"
-      :img-src="imageUrl(item)"
+      :title="book.volumeInfo.title"
+      :img-src="imageUrl(book)"
       img-height = '200'
       img-alt="Image"
       img-top
       tag="article"
       style="max-width: 20rem;"
     >
-      <b-card-text v-if="item.volumeInfo.subtitle">
-        {{item.volumeInfo.subtitle}}
+      <b-card-text v-if="book.volumeInfo.subtitle">
+        {{book.volumeInfo.subtitle}}
       </b-card-text>
-      <b-card-text v-for="(author, authorIndex) in item.volumeInfo.authors" :key="authorIndex">
+      <b-card-text v-for="(author, authorIndex) in book.volumeInfo.authors" :key="authorIndex">
         {{author}} 著
       </b-card-text>
 
@@ -26,28 +26,28 @@
 
       <b-button
         v-if="showIndexButton"
-        @click="$emit('add-reading-list', item.id)"
+        @click="$emit('add-reading-list', book.id)"
       >
         読んでるリストに追加する
       </b-button>
 
       <b-button
-        v-if="showReadButton"
-        @click="$emit('back-reading-list', item.bookId, false)"
+        v-if="showReadedButton"
+        @click="$emit('back-reading-list', book.bookId, false)"
       >
         読んでるリストに追加する
       </b-button>
 
       <b-button
         v-if="showReadingButton"
-        @click="$emit('add-read-list', item.bookId, true)"
+        @click="$emit('add-readed-list', book.bookId, true)"
       >
         読んだリストに追加する
       </b-button>
 
       <b-button
         v-if="showListButton"
-        @click="$emit('delete-list', item.bookId)"
+        @click="$emit('delete-list', book.bookId)"
       >
         削除
       </b-button>
@@ -61,7 +61,7 @@ import { apiGet } from '~/api/config';
 export default {
   created: function() {},
   props: {
-    item: {
+    book: {
       type: Object,
       required: true,
       default: {},
@@ -77,13 +77,13 @@ export default {
       return this.$route.path === '/';
     },
     showReadingButton() {
-      return this.$route.path === '/list' && !this.$store.getters['getIsReaded'];
+      return this.$route.path === '/list/reading';
     },
-    showReadButton() {
-      return this.$route.path === '/list' && this.$store.getters['getIsReaded'];
+    showReadedButton() {
+      return this.$route.path === '/list/readed';
     },
     showListButton() {
-      return this.$route.path === '/list';
+      return this.$route.path === '/list/reading' || this.$route.path === '/list/readed';
     },
 },
   methods:{
@@ -93,8 +93,8 @@ export default {
       }
     },
     goMemoIndex() {
-      const url = '/book/' + this.item.bookId + '/memo'
-      this.$router.push({ path: url, query: { id: this.item.id } });
+      const url = '/book/' + this.book.bookId + '/memo'
+      this.$router.push({ path: url, query: { id: this.book.id } });
     }
   }
 }

@@ -4,12 +4,12 @@
     <b-row>
       <b-col
         cols="12" sm="6" lg="4"
-        v-for="(item, index) in items"
+        v-for="(book, index) in sortBooksAtDbOrder"
         :key="index"
       >
         <bookBlock
-          :item="item"
-          @add-read-list="addReadList"
+          :book="book"
+          @add-readed-list="addReadedList"
           @delete-list="deleteList"
         ></bookBlock>
       </b-col>
@@ -19,8 +19,8 @@
 
 <script>
 import axios from 'axios';
+import BookList from '@/service/BookList'
 import bookBlock from '@/components/bookBlock.vue';
-import { apiGet, apiPut, apiDelete } from '~/api/config';
 export default {
   components: { bookBlock },
   created: function() {
@@ -28,76 +28,45 @@ export default {
   },
   data: function () {
     return {
-      items: [],
-      isReaded: false,
-      getBookCount: 0,
-      books: [],
+      ggBooks: [],
+      dbBooks: [],
     }
   },
-  watch: {
-    getBookCount: function () {
-      if (this.getBookCount === this.books.length) {
-        this.books.map(book => {
-          this.items.map((item, index) => {
-            if(book.volume_id === item.id) {
-              this.items[index]['bookId'] = book.id;
-            }
-          })
-        })
-        function compare (genreA, genreB) {
-          let comparison = 0;
-          if (genreA.bookId > genreB.bookId) {
-            comparison = 1;
-          } else if (genreA.bookId < genreB.bookId) {
-            comparison = -1;
-          }
-          return comparison;
-        }
-        this.items.sort(compare);
+  watch: {},
+  computed: {
+    sortBooksAtDbOrder() {
+      if (this.ggBooks.length === this.dbBooks.length) {
+        return BookList.sortBooksAtDbOrder(this.ggBooks, this.dbBooks)
+      } else {
+        return [];
       }
     },
   },
-  computed: {},
   methods:{
     // 一覧取得
     async getIndex(){
       // 初期化
-      this.items = [];
-      this.books = [];
-      this.getBookCount = 0;
-      const url = 'books';
-      const params = {
-        is_readed: false,
-      }
-      await apiGet(url, params).then(res => {
-        this.books = res.data;
-      })
+      this.ggBooks = [];
+      this.dbBooks = [];
+
+      this.dbBooks = await BookList.getDbBooks(false);
       // googleapisからデータ取得
-      await this.books.map(async (val, index) => {
+      this.dbBooks.map((val, index) => {
         axios.get(`https://www.googleapis.com/books/v1/volumes/${val.volume_id}`)
-          .then(res =>{
-            this.getBookCount += 1;
-            this.items.push(res.data);
-          })
+        .then(res =>{
+          this.ggBooks.push(res.data);
+        })
       })
     },
-    // 読んだリストに追加
-    addReadList(bookId, isReaded) {
-      const params = {
-        is_readed: isReaded
-      };
-      const url = 'books/' + bookId;
-      apiPut(url, params).then(res => {
-        this.$store.dispatch('setIsReaded', true);
-        this.getIndex();
-      })
+    // ステータス更新
+    async addReadedList(bookId, isReaded) {
+      await BookList.updateReadStatus(bookId, isReaded);
+      this.getIndex();
     },
-    // 読んでるリストから削除
-    deleteList(bookId) {
-      const url = 'books/' + bookId;
-      apiDelete(url).then(res => {
-        this.getIndex();
-      })
+    // 削除
+    async deleteList(bookId) {
+      await BookList.deleteList();
+      this.getIndex();
     },
   }
 }
