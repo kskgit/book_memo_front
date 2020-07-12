@@ -8,15 +8,22 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
+    "generate:prd": "cross-env NODE_ENV=production nuxt generate",
     "test": "jest"
   },
   "dependencies": {
+    "@firebase/app": "^0.6.7",
+    "@firebase/auth": "^0.14.7",
+    "@firebase/firestore": "^1.15.5",
     "@nuxtjs/axios": "^5.9.5",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.4.1",
+    "core-js": "^2",
+    "cross-env": "^7.0.2",
+    "firebase": "^7.15.5",
     "nuxt": "^2.0.0",
+    "save": "^2.4.0",
     "vue": "^2.6.11",
     "vue2-dropzone": "^3.6.0",
     "vuejs-datepicker": "^1.6.2"
