@@ -1,7 +1,6 @@
 <template>
   <div>
-    <P v-if="isReaded">読んだ本</P>
-    <P v-else>読んでる本</P>
+    <p>読んだ本</p>
     <b-row>
       <b-col
         cols="12" sm="6" lg="4"
@@ -11,7 +10,6 @@
         <bookBlock
           :item="item"
           @back-reading-list="backReadingList"
-          @add-read-list="addReadList"
           @delete-list="deleteList"
         ></bookBlock>
       </b-col>
@@ -37,6 +35,7 @@ export default {
     }
   },
   watch: {
+    // googleAPIからデータ取得後に一覧表示する制御
     getBookCount: function () {
       if (this.getBookCount === this.books.length) {
         this.books.map(book => {
@@ -67,11 +66,11 @@ export default {
       this.items = [];
       this.books = [];
       this.getBookCount = 0;
-      this.isReaded = this.$store.getters['getIsReaded'] ? this.$store.getters['getIsReaded']: false;
       const url = 'books';
       const params = {
-        is_readed: this.isReaded,
+        is_readed: true,
       }
+      // DBからデータ取得
       await apiGet(url, params).then(res => {
         this.books = res.data;
       })
@@ -84,17 +83,7 @@ export default {
           })
       })
     },
-    // 読んだリストに追加
-    addReadList(bookId, isReaded) {
-      const params = {
-        is_readed: isReaded
-      };
-      const url = 'books/' + bookId;
-      apiPut(url, params).then(res => {
-        this.$store.dispatch('setIsReaded', true);
-        this.getIndex();
-      })
-    },
+    // 読んでるリストに追加
     backReadingList(bookId, isReaded) {
       const url = 'books/' + bookId;
       const params = {

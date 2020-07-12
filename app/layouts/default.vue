@@ -1,7 +1,7 @@
 <template>
-  <div class="top-container">
+  <div>
     <Header/>
-    <b-container>
+    <b-container class="top-container">
       <nuxt />
     </b-container>
   </div>
