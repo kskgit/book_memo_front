@@ -1,31 +1,29 @@
 <template>
 <div>
-  <b-form class="m-1" inline>
-    <b-col cols="8">
-      <b-input
-        id="inline-form-input-name"
-        class="mb-2 mr-sm-2 mb-sm-0"
-        placeholder="タイトル"
-        v-model="query"
-      ></b-input>
-    </b-col>
-    <b-col cols="4">
-      <b-button
-        class="mb-2 mr-sm-2 mb-sm-0"
-        variant="primary"
-        @click="getResult"
-      >
-        検索
-      </b-button>
-    </b-col>
-  </b-form>
+  <b-col cols="8">
+    <b-input
+      id="inline-form-input-name"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      placeholder="タイトル"
+      v-model="query"
+    ></b-input>
+  </b-col>
+  <b-col cols="4">
+    <b-button
+      class="mb-2 mr-sm-2 mb-sm-0"
+      variant="primary"
+      @click="getResult"
+    >
+      検索
+    </b-button>
+  </b-col>
   <b-row>
     <b-col
       cols="12" sm="6" lg="4"
-      v-for="(item, index) in items" :key="index"
+      v-for="(book, index) in raBooks" :key="index"
     >
       <bookBlock
-        :item="item"
+        :book="book.Item"
         @add-reading-list = "addReadingList"
       ></bookBlock>
     </b-col>
@@ -43,15 +41,14 @@ export default {
   data: function () {
     return {
       query: '',
-      items: '',
+      raBooks: '',
     }
   },
   computed: {},
   methods:{
-    getResult(){
-      axios.get("https://www.googleapis.com/books/v1/volumes?q=search" + this.query + "&maxResults=40").then(response => {
-        this.items = response.data.items;
-      });
+    async getResult(){
+      const res = await this.$serchRyRakutenBookAPI(this.query);
+      this.raBooks = res.data.Items
     },
     imageUrl(book) {
       if (book.volumeInfo.imageLinks) {

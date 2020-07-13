@@ -1,18 +1,13 @@
 <template>
   <div>
     <b-card
-      :title="book.volumeInfo.title"
-      :img-src="imageUrl(book)"
-      img-height = '200'
+      :title="book.title"
+      :img-src="imageUrl()"
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem;"
     >
-      <b-card-text v-if="book.volumeInfo.subtitle">
-        {{book.volumeInfo.subtitle}}
-      </b-card-text>
-      <b-card-text v-for="(author, authorIndex) in book.volumeInfo.authors" :key="authorIndex">
+      <b-card-text v-for="(author, authorIndex) in book.artistName" :key="authorIndex">
         {{author}} 著
       </b-card-text>
 
@@ -87,9 +82,9 @@ export default {
     },
 },
   methods:{
-    imageUrl(book) {
-      if (book.volumeInfo.imageLinks) {
-        return book.volumeInfo.imageLinks.thumbnail;
+    imageUrl() {
+      if (this.book.mediumImageUrl) {
+        return this.book.mediumImageUrl;
       }
     },
     goMemoIndex() {
