@@ -31,7 +31,8 @@ export default {
   methods:{
     signIn() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      .then(()=> {
+      .then((user)=> {
+        localStorage.setItem('uid', user.user.uid)
         this.$router.push('/');
       }).catch((error) => {
         this.showErrorMessage = true

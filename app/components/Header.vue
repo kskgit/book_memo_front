@@ -28,6 +28,7 @@ export default {
   methods:{
     logout() {
       firebase.auth().signOut().then(function() {
+        localStorage.removeItem('uid')
         this.$router.push('/user/login')
       }).catch(function(error) {
         console.log(error)
