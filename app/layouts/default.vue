@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header/>
-    <b-container class="top-container">
+    <Header class="common-header"/>
+    <b-container>
       <nuxt />
     </b-container>
   </div>
@@ -26,9 +26,7 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
-.top-container {
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+.common-header {
+  margin-bottom: 20px;
 }
 </style>
