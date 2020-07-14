@@ -9,10 +9,6 @@ const serchRyRakutenBookAPI = (keyword, isbnjan = '') => {
     params += `&isbnjan=${isbnjan}`
   }
   return axios.get("https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?" + params)
-  // .then((res) => {
-  //   console.log(res)
-  //   return res
-  // })
 }
 
 export default ({}, inject) => {

@@ -7,8 +7,8 @@
       img-top
       tag="article"
     >
-      <b-card-text v-for="(author, authorIndex) in book.artistName" :key="authorIndex">
-        {{author}} 著
+      <b-card-text v-if="book.artist_name">
+        {{book.artist_name}} 著
       </b-card-text>
 
       <!-- ボタン -->
@@ -28,21 +28,21 @@
 
       <b-button
         v-if="showReadedButton"
-        @click="$emit('back-reading-list', book.bookId, false)"
+        @click="$emit('back-reading-list', book.id, false)"
       >
         読んでるリストに追加する
       </b-button>
 
       <b-button
         v-if="showReadingButton"
-        @click="$emit('add-readed-list', book.bookId, true)"
+        @click="$emit('add-readed-list', book.id, true)"
       >
         読んだリストに追加する
       </b-button>
 
       <b-button
         v-if="showListButton"
-        @click="$emit('delete-list', book.bookId)"
+        @click="$emit('delete-list', book.id)"
       >
         削除
       </b-button>
@@ -85,6 +85,8 @@ export default {
     imageUrl() {
       if (this.book.image) {
         return this.book.image;
+      } else if (this.book.mediumImageUrl) {
+        return this.book.mediumImageUrl;
       }
     },
     goMemoIndex() {

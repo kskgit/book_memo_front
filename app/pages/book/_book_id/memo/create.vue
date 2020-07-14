@@ -35,7 +35,6 @@ export default {
       apiPost(url, params).then(res => {
         if (res.status === 201) {
           const redirect_url = `/book/${this.form.book_id}/memo`
-          console.log('===this.$root.query.id', this.$route.query);
           this.$router.push({path: redirect_url, query: { id: this.$route.query.id }})
         }
       });

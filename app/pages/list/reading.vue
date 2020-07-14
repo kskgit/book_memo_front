@@ -44,10 +44,11 @@ export default {
     async addReadedList(bookId, isReaded) {
       await BookList.updateReadStatus(bookId, isReaded);
       this.getIndex();
+      this.$router.push('/list/readed')
     },
     // 削除
     async deleteList(bookId) {
-      await BookList.deleteList();
+      await BookList.deleteList(bookId);
       this.getIndex();
     },
   }

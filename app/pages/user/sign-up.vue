@@ -36,7 +36,6 @@ export default {
     async signup(){
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then(user => {
-        console.log('success!', user);
         this.$router.push('/')
       }).catch(error => {
         var errorCode = error.code;

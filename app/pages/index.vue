@@ -6,6 +6,7 @@
       class="mb-2 mr-sm-2 mb-sm-0"
       placeholder="タイトル"
       v-model="query"
+      @keypress="getResult"
     ></b-input>
   </b-col>
   <b-col cols="4">
@@ -56,8 +57,9 @@ export default {
         return book.volumeInfo.imageLinks.thumbnail;
       }
     },
-    addReadingList(book) {
-      BookList.createBookList(book);
+    async addReadingList(book) {
+      await BookList.createBookList(book);
+      this.$router.push('/list/reading');
     }
   }
 }

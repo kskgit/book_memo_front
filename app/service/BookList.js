@@ -58,12 +58,7 @@ const bookList = {
 
     // TODO 写真撮影した場合の処理
 
-    apiPost(url, params).then(res => {
-      if (res.status = 201) {
-        this.$store.dispatch('setIsReaded', isReaded)
-        this.$router.push('/list');
-      }
-    });
+    return apiPost(url, params)
   }
 };
 
