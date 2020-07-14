@@ -83,8 +83,8 @@ export default {
 },
   methods:{
     imageUrl() {
-      if (this.book.mediumImageUrl) {
-        return this.book.mediumImageUrl;
+      if (this.book.image) {
+        return this.book.image;
       }
     },
     goMemoIndex() {

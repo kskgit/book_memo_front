@@ -4,7 +4,7 @@
     <b-row>
       <b-col
         cols="12" sm="6" lg="4"
-        v-for="(book, index) in sortBooksAtDbOrder"
+        v-for="(book, index) in dbBooks"
         :key="index"
       >
         <bookBlock
@@ -28,35 +28,17 @@ export default {
   },
   data: function () {
     return {
-      ggBooks: [],
       dbBooks: [],
     }
   },
   watch: {},
-  computed: {
-    sortBooksAtDbOrder() {
-      if (this.ggBooks.length === this.dbBooks.length) {
-        return BookList.sortBooksAtDbOrder(this.ggBooks, this.dbBooks)
-      } else {
-        return [];
-      }
-    },
-  },
+  computed: {},
   methods:{
     // 一覧取得
     async getIndex(){
       // 初期化
-      this.ggBooks = [];
       this.dbBooks = [];
-
       this.dbBooks = await BookList.getDbBooks(false, localStorage.getItem('uid'));
-      // googleapisからデータ取得
-      this.dbBooks.map((val, index) => {
-        axios.get(`https://www.googleapis.com/books/v1/volumes/${val.volume_id}`)
-        .then(res =>{
-          this.ggBooks.push(res.data);
-        })
-      })
     },
     // ステータス更新
     async addReadedList(bookId, isReaded) {
