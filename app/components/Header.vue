@@ -3,7 +3,7 @@
 		<b-navbar toggleable="lg" type="dark" variant="info">
 			<b-navbar-brand href="#">Book Memo</b-navbar-brand>
 
-			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+			<b-navbar-toggle v-if= "showNavBar" target="nav-collapse"></b-navbar-toggle>
 
 			<b-collapse id="nav-collapse" is-nav>
 				<b-navbar-nav>
@@ -23,6 +23,9 @@ export default {
   computed: {
     showIndexButton() {
       return this.$route.path === '/';
+    },
+    showNavBar() {
+      return this.$route.path !== '/user/sign-up' &&  this.$route.path !== '/user/login';
     },
   },
   methods:{
