@@ -36,6 +36,7 @@
 import axios from 'axios';
 import bookBlock from '@/components/bookBlock.vue';
 import { apiPost } from '~/api/config';
+import BookList from '@/service/BookList'
 export default {
   components: { bookBlock },
   data: function () {
@@ -55,17 +56,8 @@ export default {
         return book.volumeInfo.imageLinks.thumbnail;
       }
     },
-    addReadingList(volumeId, isReaded) {
-      const url = 'books';
-      const params = {
-        volume_id: volumeId
-      }
-      apiPost(url, params).then(res => {
-        if (res.status = 201) {
-          this.$store.dispatch('setIsReaded', isReaded)
-          this.$router.push('/list');
-        }
-      });
+    addReadingList(book) {
+      BookList.createBookList(book);
     }
   }
 }

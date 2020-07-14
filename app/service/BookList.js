@@ -1,9 +1,10 @@
-import { apiGet, apiPut, apiDelete } from '~/api/config';
+import { apiGet, apiPut, apiDelete, apiPost } from '~/api/config';
 const bookList = {
-  getDbBooks: async (is_readed) => {
+  getDbBooks: async (is_readed, uid) => {
     const url = 'books';
     const params = {
       is_readed: is_readed,
+      uid: uid
     }
     // DBからデータ取得
     const res = await apiGet(url, params)
@@ -42,6 +43,28 @@ const bookList = {
     }
     return ggBooks.sort(compare);
   },
+  createBookList: (book) => {
+    const url = 'books';
+    let params = {
+      uid: localStorage.getItem('uid'),
+      artist_name: book.artistName,
+      title: book.title,
+      image_url: book.mediumImageUrl
+    }
+
+    if (book.mediumImageUrl) {
+      params.image_url = book.mediumImageUrl
+    }
+
+    // TODO 写真撮影した場合の処理
+
+    apiPost(url, params).then(res => {
+      if (res.status = 201) {
+        this.$store.dispatch('setIsReaded', isReaded)
+        this.$router.push('/list');
+      }
+    });
+  }
 };
 
 export default bookList;

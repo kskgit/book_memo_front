@@ -49,7 +49,7 @@ export default {
       this.ggBooks = [];
       this.dbBooks = [];
 
-      this.dbBooks = await BookList.getDbBooks(false);
+      this.dbBooks = await BookList.getDbBooks(false, localStorage.getItem('uid'));
       // googleapisからデータ取得
       this.dbBooks.map((val, index) => {
         axios.get(`https://www.googleapis.com/books/v1/volumes/${val.volume_id}`)

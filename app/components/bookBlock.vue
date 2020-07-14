@@ -21,7 +21,7 @@
 
       <b-button
         v-if="showIndexButton"
-        @click="$emit('add-reading-list', book.id)"
+        @click="$emit('add-reading-list', book)"
       >
         読んでるリストに追加する
       </b-button>
