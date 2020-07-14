@@ -1,31 +1,38 @@
 <template>
   <div>
-    <b-col cols="8">
-      <b-input
-        id="inline-form-input-name"
-        class="mb-2 mr-sm-2 mb-sm-0"
-        placeholder="タイトル"
-        v-model="searchWord"
-        @keypress="getResult"
-      ></b-input>
-      <b-pagination
-        v-if="pageNationItems.totalRows > 0"
-        v-model="pageNationItems.currentPage"
-        :total-rows="pageNationItems.totalRows"
-        :per-page="pageNationItems.perPage"
-        aria-controls="my-table"
-        @click="changePage"
-      ></b-pagination>
-    </b-col>
-    <b-col cols="4">
-      <b-button
-        class="mb-2 mr-sm-2 mb-sm-0"
-        variant="primary"
-        @click="getResult"
-      >
-        検索
-      </b-button>
-    </b-col>
+    <b-row cols="8">
+      <b-col>
+        <b-input
+          id="inline-form-input-name"
+          class="mb-2 mr-sm-2 mb-sm-0"
+          placeholder="タイトル"
+          v-model="searchWord"
+          @keypress="getResult"
+        ></b-input>
+      </b-col>
+      <b-col cols="4">
+        <b-button
+          class="mb-2 mr-sm-2 mb-sm-0"
+          variant="primary"
+          @click="getResult"
+        >
+          検索
+        </b-button>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-pagination
+          v-if="pageNationItems.totalRows > 0"
+          v-model="pageNationItems.currentPage"
+          :total-rows="pageNationItems.totalRows"
+          :per-page="pageNationItems.perPage"
+          aria-controls="my-table"
+          @click="changePage"
+          class="mt-3"
+        ></b-pagination>
+      </b-col>
+    </b-row>
     <b-row>
       <b-col
         cols="12" sm="6" lg="4"
@@ -36,6 +43,8 @@
           @add-reading-list = "addReadingList"
         ></bookBlock>
       </b-col>
+    </b-row>
+    <b-row>
       <b-col>
         <b-pagination
           v-if="pageNationItems.totalRows > 0"
@@ -44,6 +53,7 @@
           :per-page="pageNationItems.perPage"
           aria-controls="my-table"
           @click="changePage"
+          class="mt-3"
         ></b-pagination>
       </b-col>
     </b-row>
