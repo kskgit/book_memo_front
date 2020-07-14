@@ -1,25 +1,18 @@
 <template>
   <div class="signup">
-    <h2>Sign up</h2>
-    <div style="width:500px">
-      <div class="row align-items-center">
-        <div class="col-md-4">メールアドレス</div>
-        <div class="col-md-3">
-          <input type="text" placeholder="email" v-model="email">
-        </div>
-      </div>
-      <div class="row align-items-center">
-        <div class="col-md-4">パスワード</div>
-        <div class="col-md-3">
-          <input type="password" placeholder="Password" v-model="password">
-        </div>
-      </div>
-      <div class="row align-items-center">
-        <div class="col-md-12">
-          <button class="btn btn-primary" @click="signup">signup</button>
-        </div>
-      </div>
-    </div>
+    <b-row>
+      <b-col>メールアドレス</b-col>
+      <b-form-input placeholder="Email" v-model="email" class="input-text ml-3 mr-3"/>
+    </b-row>
+    <b-row class="mt-3">
+      <b-col>パスワード</b-col>
+      <b-form-input placeholder="パスワード" v-model="password" class="input-text ml-3 mr-3" type="password"/>
+    </b-row>
+    <b-button class="mt-3" @click="signup()">アカウント作成</b-button>
+    <b-alert v-if="showErrorMessage" variant="danger" show class="mt-3">ログインに失敗しました</b-alert>
+    <b-row class="mt-3">
+      <b-col><nuxt-link to="/user/login">ログイン</nuxt-link></b-col>
+    </b-row>
   </div>
 </template>
 <script>
@@ -36,6 +29,7 @@ export default {
     async signup(){
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then(user => {
+        localStorage.setItem('uid', user.user.uid)
         this.$router.push('/')
       }).catch(error => {
         var errorCode = error.code;
@@ -45,18 +39,4 @@ export default {
   }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.signup {
-  margin-top: 20px;
-
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-}
-input {
-  margin: 10px 0;
-  padding: 10px;
-}
-</style>
+<style></style>

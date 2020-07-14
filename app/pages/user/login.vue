@@ -10,6 +10,9 @@
     </b-row>
     <b-button class="mt-3" @click="signIn()">ログイン</b-button>
     <b-alert v-if="showErrorMessage" variant="danger" show class="mt-3">ログインに失敗しました</b-alert>
+    <b-row class="mt-3">
+      <b-col><span>アカウントをお持ちで無い方は</span><nuxt-link to="/user/sign-up">こちら</nuxt-link></b-col>
+    </b-row>
   </div>
 </template>
 
