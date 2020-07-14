@@ -7,14 +7,14 @@
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="タイトル"
           v-model="searchWord"
-          @keypress="getResult"
+          @keyup.enter="getResult(true)"
         ></b-input>
       </b-col>
       <b-col cols="4">
         <b-button
           class="mb-2 mr-sm-2 mb-sm-0"
           variant="primary"
-          @click="getResult"
+          @click="getResult(true)"
         >
           検索
         </b-button>
@@ -28,7 +28,6 @@
           :total-rows="pageNationItems.totalRows"
           :per-page="pageNationItems.perPage"
           aria-controls="my-table"
-          @click="changePage"
           class="mt-3"
         ></b-pagination>
       </b-col>
@@ -52,7 +51,6 @@
           :total-rows="pageNationItems.totalRows"
           :per-page="pageNationItems.perPage"
           aria-controls="my-table"
-          @click="changePage"
           class="mt-3"
         ></b-pagination>
       </b-col>
@@ -74,18 +72,18 @@ export default {
       pageNationItems: {
         currentPage: 1,
         totalRows: 0,
-        perPage: 5
+        perPage: 1
       }
     }
   },
   computed: {},
   watch: {
-    'pageNationItems.currentPage': function(){
-      this.getResult()
+    'pageNationItems.currentPage': async function(){
+      await this.getResult()
     },
   },
   methods:{
-    async getResult(){
+    async getResult(research = false){
       const query = {
         keyword: this.searchWord,
         page: this.pageNationItems.currentPage
@@ -93,6 +91,9 @@ export default {
       const res = await this.$searchRyRakutenBookAPI(query);
       this.raBooks = res.data.Items
       this.pageNationItems.totalRows = res.data.pageCount
+      if(research) {
+        this.pageNationItems.currentPage = 1
+      }
     },
     imageUrl(book) {
       if (book.volumeInfo.imageLinks) {
@@ -103,9 +104,6 @@ export default {
       await BookList.createBookList(book);
       this.$router.push('/list/reading');
     },
-    changePage() {
-      this.getResult()
-    }
   }
 }
 </script>

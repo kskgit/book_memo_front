@@ -12,7 +12,6 @@ const searchRyRakutenBookAPI = (query) => {
     params += `&page=${query.page}`
   }
   params += '&hits=15'
-  // params += '&sort=-releaseDate'
   return axios.get("https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?" + params)
 }
 
