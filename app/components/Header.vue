@@ -7,7 +7,7 @@
 
 			<b-collapse id="nav-collapse" is-nav>
 				<b-navbar-nav>
-					<b-nav-item to="/">検索</b-nav-item>
+					<b-nav-item to="/book/create/input">本を追加する</b-nav-item>
 					<b-nav-item to="/list/reading">読んでる本</b-nav-item>
 					<b-nav-item to="/list/readed">読んだ本</b-nav-item>
           <b-nav-item @click="logout()">ログアウト</b-nav-item>

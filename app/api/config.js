@@ -34,9 +34,19 @@ const apiPut = (url, params = {}, headers = {}) =>
     })
     .catch(err => err.response || { noResponse: true });
 
+const apiPostMultipartForm = (url, params = {}) =>
+  api
+    .post(url, params, {
+      headers: {
+        'content-Type': 'multipart/form-data',
+      },
+    })
+    .catch(err => err.response || { noResponse: true });
+
 export {
   apiGet,
   apiPost,
   apiDelete,
   apiPut,
+  apiPostMultipartForm,
 };

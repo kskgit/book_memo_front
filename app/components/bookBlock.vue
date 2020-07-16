@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     showIndexButton() {
-      return this.$route.path === '/';
+      return this.$route.path === '/book/create/search';
     },
     showReadingButton() {
       return this.$route.path === '/list/reading';

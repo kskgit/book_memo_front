@@ -1,4 +1,4 @@
-import { apiGet, apiPut, apiDelete, apiPost } from '~/api/config';
+import { apiGet, apiPut, apiDelete, apiPost, apiPostMultipartForm } from '~/api/config';
 const bookList = {
   getDbBooks: async (is_readed, uid) => {
     const url = 'books';
@@ -45,21 +45,26 @@ const bookList = {
   },
   createBookList: (book) => {
     const url = 'books';
-    let params = {
+
+    const params = {
       uid: localStorage.getItem('uid'),
       artist_name: book.artistName,
       title: book.title,
       image_url: book.mediumImageUrl
     }
-
-    if (book.mediumImageUrl) {
-      params.image_url = book.mediumImageUrl
-    }
-
-    // TODO 写真撮影した場合の処理
-
     return apiPost(url, params)
+  },
+  createBookListByMultipartForm: (book) => {
+    const url = 'books/create_by_multipart_form';
+
+    const formData = new FormData();
+    formData.append('image', book.imageFile);
+    formData.append('uid', localStorage.getItem('uid'));
+    formData.append('artist_name', book.artistName);
+    formData.append('title', book.title);
+    return apiPostMultipartForm(url, formData)
   }
+
 };
 
 export default bookList;

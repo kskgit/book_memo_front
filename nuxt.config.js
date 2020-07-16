@@ -1,3 +1,5 @@
+import transferIndex from "./app/middleware/transferIndex";
+
 const environment = process.env.NODE_ENV || 'development';
 const envSet = require(`./app/config/env.${environment}.js`);
 export default {
@@ -60,6 +62,6 @@ export default {
     }
   },
   router: {
-    middleware: 'authenticated'
+    middleware: ['authenticated', 'transferIndex']
   }
 }
