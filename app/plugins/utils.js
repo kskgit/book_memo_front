@@ -1,5 +1,5 @@
 import axios from 'axios';
-const searchRyRakutenBookAPI = (query) => {
+const searchByRakutenBookAPI = (query) => {
   const APPLICATION_ID = '1073427335479601357'
   let params = `applicationId=${APPLICATION_ID}`;
   if(query.keyword) {
@@ -16,5 +16,5 @@ const searchRyRakutenBookAPI = (query) => {
 }
 
 export default ({}, inject) => {
-  inject('searchRyRakutenBookAPI', searchRyRakutenBookAPI);
+  inject('searchByRakutenBookAPI', searchByRakutenBookAPI);
 }

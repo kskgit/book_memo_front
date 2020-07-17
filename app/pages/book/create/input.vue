@@ -1,5 +1,11 @@
 <template>
   <div>
+    <b-button
+      @click="showScaner = true"
+    >
+      スキャン開始
+    </b-button>
+    <BarcodeScaner v-if="showScaner" @search-rakuten-api="searchRakutenApi"/>
     <b-row>
       <b-col>
         <input
@@ -42,12 +48,15 @@
 <script>
 import axios from 'axios';
 import { apiPost } from '~/api/config';
-import BookList from '@/service/BookList'
+import BookList from '@/service/BookList';
+import BarcodeScaner from '@/components/BarcodeScaner';
 export default {
+  components: { BarcodeScaner },
   data: function () {
     return {
       searchWord: '',
       imageForDisplay: '',
+      showScaner: false,
       book: {
         artistName: '',
         title: '',
@@ -71,6 +80,16 @@ export default {
       }
       reader.readAsDataURL(file)
       this.book.imageFile = file
+    },
+    async searchRakutenApi(isbnCode) {
+      const query = {
+        isbnjan: isbnCode
+      }
+      const res = await this.$searchByRakutenBookAPI(query)
+      this.showScaner = false
+      this.imageForDisplay = res.data.Items[0].Item.largeImageUrl
+      this.book.title = res.data.Items[0].Item.title
+      this.book.artistName = res.data.Items[0].Item.author
     }
   }
 }

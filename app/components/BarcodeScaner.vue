@@ -1,0 +1,106 @@
+<template>
+  <div>
+    <div id="interactive" class="viewport"></div>
+    <button aria-label="close" @click="startScan">
+      開始
+    </button>
+    <button aria-label="close" @click.prevent.stop="stopScan">
+      Stop
+    </button>
+  </div>
+</template>
+
+<script>
+import Quagga from 'quagga';
+export default {
+  name: "BarcodeScanner",
+  created: function() {},
+  data() {
+    return {};
+  },
+  methods: {
+    startScan () {
+      this.initQuagga()
+    },
+    initQuagga() {
+      // バーコード検出時の処理を設定
+      Quagga.onDetected(this.onDetected);
+      Quagga.onProcessed(this.onProcessed);
+
+      // Quaggaの設定項目
+      const config = {
+        // カメラの映像の設定
+        inputStream: {
+          type: "LiveStream",
+          // カメラ映像を表示するHTML要素の設定
+          target: document.querySelector("#interactive"),
+          // バックカメラの利用を設定. (フロントカメラは"user")
+          constraints: { facingMode: "environment" },
+          // 検出範囲の指定: 上下30%は対象外
+          area: { top: "20%", right: "0%", left: "20%", bottom: "20%" }
+        },
+        // 解析するワーカ数の設定
+        numOfWorkers: navigator.hardwareConcurrency || 4,
+        // バーコードの種類を設定: ISBNは"ean_reader"
+        decoder: { readers: ["ean_reader"] }
+      }
+      // 初期化の開始。合わせて、初期化後の処理を設定
+      Quagga.init(config, this.onInitilize);
+    },
+    // 成功時の処理を記載
+    onDetected (success) {
+      const isbn = success.codeResult.code;
+      // ISBNコードを検出した場合
+      if(isbn.includes('978')) {
+        this.$emit('search-rakuten-api', isbn)
+        Quagga.stop();
+      }
+    },
+    /**
+     * Quaggaの初期化完了後の処理
+     * errorがなければ、起動する
+     */
+    onInitilize (error) {
+      if (!!error) {
+        // エラーがある場合は、キャンセルをEmitする
+        console.error(`Error: ${error}`, error);
+        Quagga.stop();
+        return;
+      }
+
+      // エラーがない場合は、読み取りを開始
+      Quagga.start();
+    },
+    onProcessed(result) {
+      const drawingCtx = Quagga.canvas.ctx.overlay;
+      const drawingCanvas = Quagga.canvas.dom.overlay;
+
+      if (result) {
+        // 検出中の緑の線の枠
+        if (result.boxes) {
+          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+          result.boxes.filter(function (box) {
+              return box !== result.box;
+          }).forEach(function (box) {
+              Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+          });
+        }
+
+        if (result.box) {
+            Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+        }
+
+        if (result.codeResult && result.codeResult.code) {
+            Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+        }
+      }
+    }
+  }
+};
+</script>
+
+<style>
+#interactive.viewport canvas.drawingBuffer, video.drawingBuffer {
+  margin-left: -640px;
+}
+</style>

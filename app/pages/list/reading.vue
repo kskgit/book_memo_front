@@ -7,11 +7,11 @@
         v-for="(book, index) in dbBooks"
         :key="index"
       >
-        <bookBlock
+        <BookBlock
           :book="book"
           @add-readed-list="addReadedList"
           @delete-list="deleteList"
-        ></bookBlock>
+        ></BookBlock>
       </b-col>
     </b-row>
   </div>
@@ -20,9 +20,9 @@
 <script>
 import axios from 'axios';
 import BookList from '@/service/BookList'
-import bookBlock from '@/components/bookBlock.vue';
+import BookBlock from '@/components/BookBlock.vue';
 export default {
-  components: { bookBlock },
+  components: { BookBlock },
   created: function() {
     this.getIndex();
   },

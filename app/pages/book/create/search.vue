@@ -37,10 +37,10 @@
         cols="12" sm="6" lg="4"
         v-for="(book, index) in raBooks" :key="index"
       >
-        <bookBlock
+        <BookBlock
           :book="book.Item"
           @add-reading-list = "addReadingList"
-        ></bookBlock>
+        ></BookBlock>
       </b-col>
     </b-row>
     <b-row>
@@ -60,11 +60,11 @@
 
 <script>
 import axios from 'axios';
-import bookBlock from '@/components/bookBlock.vue';
+import BookBlock from '@/components/BookBlock.vue';
 import { apiPost } from '~/api/config';
 import BookList from '@/service/BookList'
 export default {
-  components: { bookBlock },
+  components: { BookBlock },
   data: function () {
     return {
       searchWord: '',
@@ -88,7 +88,7 @@ export default {
         keyword: this.searchWord,
         page: this.pageNationItems.currentPage
       }
-      const res = await this.$searchRyRakutenBookAPI(query);
+      const res = await this.$searchByRakutenBookAPI(query);
       this.raBooks = res.data.Items
       this.pageNationItems.totalRows = res.data.pageCount
       if(research) {
