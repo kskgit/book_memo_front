@@ -6,6 +6,7 @@
     <b-button @click="stopScan">
       停止
     </b-button>
+    <b-button @click="setInputMethodInput">読み取りが出来ない場合はこちら</b-button>
   </div>
 </template>
 
@@ -93,6 +94,10 @@ export default {
     },
     stopScan() {
       this.$emit('stop-scan', Quagga)
+    },
+    setInputMethodInput() {
+      this.stopScan()
+      this.$emit('set-input-method-input')
     }
   }
 };

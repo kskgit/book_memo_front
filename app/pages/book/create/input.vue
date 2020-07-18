@@ -1,10 +1,5 @@
 <template>
   <div>
-    <b-form-group label="入力方法を選択して下さい">
-      <b-form-radio v-model="inputMethod" value="barcode">バーコードスキャン</b-form-radio>
-      <b-form-radio v-model="inputMethod" value="input">直接入力</b-form-radio>
-    </b-form-group>
-
     <!-- バーコードスキャン -->
     <b-button
       @click="startScan()"
@@ -12,11 +7,13 @@
     >
       スキャン開始
     </b-button>
+
     <BarcodeScaner
       v-show="showScaner"
       ref="scaner"
       @search-rakuten-api="searchRakutenApi"
       @stop-scan="stopScan"
+      @set-input-method-input="setInputMethodInput"
     />
 
     <!-- ファイル読込 -->
@@ -27,7 +24,18 @@
       </span>
     </label>
 
-    <b-img class="mt-3" :src="imageForDisplay" v-if="imageForDisplay"></b-img>
+    <b-button
+      @click="setInputMethodBarcode()"
+      v-if="inputMethod==='input'"
+    >
+      スキャンに戻る
+    </b-button>
+
+    <b-row class="mt-3">
+      <b-col>
+        <b-img class="mt-3" :src="imageForDisplay" v-if="imageForDisplay"></b-img>
+      </b-col>
+    </b-row>
     <b-row class="mt-3">
       <b-col>
         <b-input
@@ -51,7 +59,7 @@
     <b-button
       class="mb-2 mr-sm-2 mb-sm-0 mt-3"
       variant="primary"
-      @click="addReadingList(true)"
+      @click="addReadingList()"
     >
       保存
     </b-button>
@@ -112,6 +120,12 @@ export default {
     stopScan(quagga) {
       this.showScaner = false
       quagga.stop();
+    },
+    setInputMethodInput() {
+      this.inputMethod='input'
+    },
+    setInputMethodBarcode() {
+      this.inputMethod='barcode'
     }
   }
 }
