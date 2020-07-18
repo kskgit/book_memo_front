@@ -39,7 +39,7 @@ export default {
           // バックカメラの利用を設定. (フロントカメラは"user")
           constraints: { facingMode: "environment" },
           // 検出範囲の指定: 上下30%は対象外
-          area: { top: "20%", right: "0%", left: "20%", bottom: "20%" }
+          area: { top: "30%", right: "10%", left: "10%", bottom: "30%" }
         },
         // 解析するワーカ数の設定
         numOfWorkers: navigator.hardwareConcurrency || 4,
