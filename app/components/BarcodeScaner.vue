@@ -33,7 +33,7 @@ export default {
           area: { top: "30%", right: "10%", left: "10%", bottom: "30%" }
         },
         // 解析するワーカ数の設定
-        numOfWorkers: navigator.hardwareConcurrency || 4,
+        numOfWorkers: 1,
         // バーコードの種類を設定: ISBNは"ean_reader"
         decoder: { readers: ["ean_reader"] }
       }
