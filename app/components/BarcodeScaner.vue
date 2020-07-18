@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div id="interactive" class="viewport"></div>
+    <div id="interactive" class="viewport">
+      <div class="detect-area" />
+    </div>
     <button aria-label="close" @click="startScan">
       開始
     </button>
@@ -99,8 +101,35 @@ export default {
 };
 </script>
 
-<style>
-#interactive.viewport canvas.drawingBuffer, video.drawingBuffer {
-  margin-left: -640px;
+<style lang="scss">
+#interactive.viewport {
+  margin: auto;
+  overflow: hidden;
+  height: 300px;
+  width: 300px;
+  /* relativeに設定 */
+  position: relative;
+
+  video, canvas {
+    margin-top: -50px;
+    width: 300px;
+    height: 400px;
+  }
+
+  /* 検出範囲のサイズに合わせ枠線を引く */
+  .detect-area {
+    position: absolute;
+    top: 30%;
+    bottom: 30%;
+    left: 10%;
+    right: 10%;
+
+    border: 2px solid #0000ff;
+  }
+
+  .drawingBuffer {
+    position: absolute;
+    left: 0;
+  }
 }
 </style>
