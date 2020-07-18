@@ -48,7 +48,7 @@ const bookList = {
 
     const params = {
       uid: localStorage.getItem('uid'),
-      artist_name: book.artistName,
+      artist_name: book.author,
       title: book.title,
       image_url: book.mediumImageUrl
     }
@@ -60,7 +60,7 @@ const bookList = {
     const formData = new FormData();
     formData.append('image', book.imageFile);
     formData.append('uid', localStorage.getItem('uid'));
-    formData.append('artist_name', book.artistName);
+    formData.append('artist_name', book.author);
     formData.append('title', book.title);
     return apiPostMultipartForm(url, formData)
   }

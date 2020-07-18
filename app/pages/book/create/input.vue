@@ -52,7 +52,7 @@
           id="inline-form-input-name"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="著者"
-          v-model="book.artistName"
+          v-model="book.author"
         />
       </b-col>
     </b-row>
@@ -76,29 +76,45 @@ export default {
   data: function () {
     return {
       searchWord: '',
-      imageForDisplay: '',
+      inputImage: '',
       showScaner: false,
       book: {
-        artistName: '',
+        author: '',
         title: '',
         imageFile: ''
       },
       inputMethod: 'barcode'
     }
   },
-  computed: {},
+  computed: {
+    imageForDisplay() {
+      if (this.inputMethod === 'barcode' && this.book.largeImageUrl) {
+        return this.book.largeImageUrl
+      }
+      if (this.inputMethod === 'input' && this.inputImage) {
+        return this.inputImage
+      }
+      return null
+    }
+  },
   watch: {},
   methods:{
     async addReadingList() {
-      await BookList.createBookListByMultipartForm(this.book);
-      this.$router.push('/list/reading');
+      if (this.inputMethod === 'barcode'){
+        await BookList.createBookList(this.book);
+        this.$router.push('/list/reading');
+      }
+      if (this.inputMethod === 'input'){
+        await BookList.createBookListByMultipartForm(this.book);
+        this.$router.push('/list/reading');
+      }
     },
     addFile(event) {
       const file = event.target.files[0]
       const reader = new FileReader()
       const self = this
       reader.onload = (e) => {
-        self.imageForDisplay = e.target.result
+        self.inputImage = e.target.result
       }
       reader.readAsDataURL(file)
       this.book.imageFile = file
@@ -109,9 +125,7 @@ export default {
       }
       const res = await this.$searchByRakutenBookAPI(query)
       this.showScaner = false
-      this.imageForDisplay = res.data.Items[0].Item.largeImageUrl
-      this.book.title = res.data.Items[0].Item.title
-      this.book.artistName = res.data.Items[0].Item.author
+      this.book = res.data.Items[0].Item
     },
     startScan() {
       this.showScaner = true
