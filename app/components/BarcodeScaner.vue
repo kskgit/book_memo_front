@@ -3,12 +3,9 @@
     <div id="interactive" class="viewport">
       <div class="detect-area" />
     </div>
-    <button aria-label="close" @click="startScan">
-      開始
-    </button>
-    <button aria-label="close" @click.prevent.stop="stopScan">
-      Stop
-    </button>
+    <b-button @click="stopScan">
+      停止
+    </b-button>
   </div>
 </template>
 
@@ -21,14 +18,7 @@ export default {
     return {};
   },
   methods: {
-    startScan () {
-      this.initQuagga()
-    },
     initQuagga() {
-      // バーコード検出時の処理を設定
-      Quagga.onDetected(this.onDetected);
-      Quagga.onProcessed(this.onProcessed);
-
       // Quaggaの設定項目
       const config = {
         // カメラの映像の設定
@@ -48,6 +38,10 @@ export default {
       }
       // 初期化の開始。合わせて、初期化後の処理を設定
       Quagga.init(config, this.onInitilize);
+
+      // バーコード検出時の処理を設定
+      Quagga.onDetected(this.onDetected);
+      Quagga.onProcessed(this.onProcessed);
     },
     // 成功時の処理を記載
     onDetected (success) {
@@ -96,6 +90,9 @@ export default {
             Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
         }
       }
+    },
+    stopScan() {
+      this.$emit('stop-scan', Quagga)
     }
   }
 };
@@ -111,6 +108,7 @@ export default {
   position: relative;
 
   video, canvas {
+    margin: auto;
     margin-top: -50px;
     width: 300px;
     height: 400px;

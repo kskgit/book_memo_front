@@ -1,21 +1,34 @@
 <template>
   <div>
+    <b-form-group label="入力方法を選択して下さい">
+      <b-form-radio v-model="inputMethod" value="barcode">バーコードスキャン</b-form-radio>
+      <b-form-radio v-model="inputMethod" value="input">直接入力</b-form-radio>
+    </b-form-group>
+
+    <!-- バーコードスキャン -->
     <b-button
-      @click="showScaner = true"
+      @click="startScan()"
+      v-if="inputMethod==='barcode' && !showScaner"
     >
       スキャン開始
     </b-button>
-    <BarcodeScaner v-if="showScaner" @search-rakuten-api="searchRakutenApi"/>
-    <b-row>
-      <b-col>
-        <input
-          type="file"
-          @change="addFile"
-        />
-      </b-col>
-      <b-img :src="imageForDisplay" fluid alt="Responsive image"></b-img>
-    </b-row>
-    <b-row>
+    <BarcodeScaner
+      v-show="showScaner"
+      ref="scaner"
+      @search-rakuten-api="searchRakutenApi"
+      @stop-scan="stopScan"
+    />
+
+    <!-- ファイル読込 -->
+    <label v-if="inputMethod==='input'">
+      <span class="btn btn-secondary">
+          画像を設定する
+          <input @change="addFile" type="file" style="display:none">
+      </span>
+    </label>
+
+    <b-img class="mt-3" :src="imageForDisplay" v-if="imageForDisplay"></b-img>
+    <b-row class="mt-3">
       <b-col>
         <b-input
           id="inline-form-input-name"
@@ -25,7 +38,7 @@
         />
       </b-col>
     </b-row>
-    <b-row>
+    <b-row class="mt-3">
       <b-col>
         <b-input
           id="inline-form-input-name"
@@ -36,7 +49,7 @@
       </b-col>
     </b-row>
     <b-button
-      class="mb-2 mr-sm-2 mb-sm-0"
+      class="mb-2 mr-sm-2 mb-sm-0 mt-3"
       variant="primary"
       @click="addReadingList(true)"
     >
@@ -61,7 +74,8 @@ export default {
         artistName: '',
         title: '',
         imageFile: ''
-      }
+      },
+      inputMethod: 'barcode'
     }
   },
   computed: {},
@@ -90,6 +104,14 @@ export default {
       this.imageForDisplay = res.data.Items[0].Item.largeImageUrl
       this.book.title = res.data.Items[0].Item.title
       this.book.artistName = res.data.Items[0].Item.author
+    },
+    startScan() {
+      this.showScaner = true
+      this.$refs.scaner.initQuagga();
+    },
+    stopScan(quagga) {
+      this.showScaner = false
+      quagga.stop();
     }
   }
 }
