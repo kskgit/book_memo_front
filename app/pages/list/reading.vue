@@ -1,6 +1,7 @@
 <template>
   <div>
-    <p>読んでる本</p>
+    <b-alert show variant="info" v-if="dbBooks.length >0 ">読んでる本一覧</b-alert>
+    <b-alert show variant="warning" v-else>読んでる本はありません</b-alert>
     <b-row>
       <b-col
         cols="12" sm="6" lg="4"

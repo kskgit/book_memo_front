@@ -3,18 +3,17 @@
     <b-button
       block
       size="lg"
-      variant="primary"
-      class="text-white"
+      variant="outline-primary"
       @click="$router.push('/book/create/input')"
       v-b-popover.hover.bottom="'本のバーコードから情報を読み取って登録します'"
     >
       <h3>バーコードを読み取って登録する</h3>
+      <b-icon-upc-scan/>
     </b-button>
     <b-button
       block
       size="lg"
-      variant="primary"
-      class="text-white mt-3"
+      variant="outline-info"
       @click="$router.push('/book/create/search')"
       v-b-popover.hover.bottom="'タイトルから本を検索して登録します'"
     >

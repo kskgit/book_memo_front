@@ -58,10 +58,11 @@
     </b-row>
     <b-button
       class="mb-2 mr-sm-2 mb-sm-0 mt-3"
-      variant="primary"
+      variant="outline-primary"
       @click="addReadingList()"
     >
-      保存
+      読んでるリストに追加する
+      <b-icon-plus/>
     </b-button>
   </div>
 </template>

@@ -10,11 +10,11 @@
         <b-icon-search/>
         検索結果
       </b-badge> -->
-      <b-badge pill v-if="showInReaded" variant="primary" style="text-align:left; display:block; width:100px;">
+      <b-badge pill v-if="showInReaded" variant="success" style="text-align:left; display:block; width:100px;">
         <b-icon-check/>
         読んだ本
       </b-badge>
-      <b-badge pill v-if="showInReading" variant="primary" style="text-align:left; display:block; width:100px;">
+      <b-badge pill v-if="showInReading" variant="info" style="text-align:left; display:block; width:100px;">
         <b-icon-eye/>
         読んでる本
       </b-badge>
