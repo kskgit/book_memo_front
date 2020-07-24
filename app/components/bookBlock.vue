@@ -1,50 +1,93 @@
 <template>
   <div>
     <b-card
-      :title="book.title"
       img-top
       tag="article"
+      align="center"
     >
-      <b-card-img :src="imageUrl()" class="image-size"></b-card-img>
-      <b-card-text v-if="book.author">
-        {{book.author}} 著
-      </b-card-text>
+      <!-- バッジ -->
+      <!-- <b-badge pill v-if="showInSearch" variant="primary" style="text-align:left; display:block; width:100px;">
+        <b-icon-search/>
+        検索結果
+      </b-badge> -->
+      <b-badge pill v-if="showInReaded" variant="primary" style="text-align:left; display:block; width:100px;">
+        <b-icon-check/>
+        読んだ本
+      </b-badge>
+      <b-badge pill v-if="showInReading" variant="primary" style="text-align:left; display:block; width:100px;">
+        <b-icon-eye/>
+        読んでる本
+      </b-badge>
+
+      <!-- タイトル -->
+      <b-card-header header-tag="h4" class="mt-3">
+        <b-card-text>
+          {{book.title}}
+        </b-card-text>
+      </b-card-header>
+
+      <!-- 画像 -->
+      <b-card-body body-text-variant="secondary">
+        <b-card-img :src="imageUrl()" class="image-size"></b-card-img>
+
+      </b-card-body>
+
+      <!-- 著者名 -->
+      <b-card-footer footer-text-variant="secondary"  v-if="book.author" class="mb-3">
+        <b-card-text>
+          {{book.author}} 著
+        </b-card-text>
+      </b-card-footer>
+
 
       <!-- ボタン -->
       <b-button
-        v-if="showListButton"
+        v-if="showInReadingAndReaded"
         @click="goMemoIndex()"
+        variant="outline-secondary"
+        class="mb-3"
       >
-        読書メモ一覧
+        ページ数を入力する
+        <b-icon-pen/>
       </b-button>
 
       <b-button
-        v-if="showIndexButton"
+        v-if="showInSearch"
         @click="$emit('add-reading-list', book)"
+        variant="outline-primary"
       >
         読んでるリストに追加する
+        <b-icon-plus/>
       </b-button>
 
       <b-button
-        v-if="showReadedButton"
+        v-if="showInReaded"
         @click="$emit('back-reading-list', book.id, false)"
+        variant="outline-primary"
+        class="mb-3"
       >
         読んでるリストに追加する
+        <b-icon-plus/>
       </b-button>
 
       <b-button
-        v-if="showReadingButton"
+        v-if="showInReading"
         @click="$emit('add-readed-list', book.id, true)"
+        variant="outline-primary"
+        class="mb-3"
       >
         読んだリストに追加する
+        <b-icon-plus/>
       </b-button>
 
       <b-button
-        v-if="showListButton"
+        v-if="showInReadingAndReaded"
         @click="$emit('delete-list', book.id)"
+        variant="outline-danger"
       >
         削除
       </b-button>
+
     </b-card>
   </div>
 </template>
@@ -67,16 +110,16 @@ export default {
     }
   },
   computed: {
-    showIndexButton() {
+    showInSearch() {
       return this.$route.path === '/book/create/search';
     },
-    showReadingButton() {
+    showInReading() {
       return this.$route.path === '/list/reading';
     },
-    showReadedButton() {
+    showInReaded() {
       return this.$route.path === '/list/readed';
     },
-    showListButton() {
+    showInReadingAndReaded() {
       return this.$route.path === '/list/reading' || this.$route.path === '/list/readed';
     },
 },
