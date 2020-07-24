@@ -2,13 +2,12 @@
   <div>
     <b-card
       :title="book.title"
-      :img-src="imageUrl()"
-      img-alt="Image"
       img-top
       tag="article"
     >
-      <b-card-text v-if="book.artist_name">
-        {{book.artist_name}} 著
+      <b-card-img :src="imageUrl()" class="image-size"></b-card-img>
+      <b-card-text v-if="book.author">
+        {{book.author}} 著
       </b-card-text>
 
       <!-- ボタン -->
@@ -97,4 +96,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.image-size {
+  width: 128px;
+  height: 128px;
+}
+</style>
