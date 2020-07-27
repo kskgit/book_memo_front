@@ -1,7 +1,6 @@
 <template>
-  <div class="d-flex justify-content-center loading-box">
+  <div v-if="showLoading" class="d-flex justify-content-center loading-box">
     <b-spinner
-      v-if="showLoading"
       style="width: 3rem; height: 3rem;"
       label="Large Spinner"
       variant="info"
