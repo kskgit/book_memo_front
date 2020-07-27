@@ -20,7 +20,6 @@
 
 <script>
 import axios from 'axios';
-import BookList from '@/service/BookList'
 import BookBlock from '@/components/BookBlock.vue';
 export default {
   components: { BookBlock },
@@ -39,7 +38,7 @@ export default {
     async getIndex(){
       // 初期化
       this.dbBooks = [];
-      this.dbBooks = await BookList.getDbBooks(false, localStorage.getItem('uid'));
+      this.dbBooks = await this.$store.dispatch('bookList/getDbBooks', {isReaded: false, uid: localStorage.getItem('uid')})
     },
     // ステータス更新
     async addReadedList(bookId, isReaded) {

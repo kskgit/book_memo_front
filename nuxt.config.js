@@ -1,5 +1,3 @@
-import transferIndex from "./app/middleware/transferIndex";
-
 const environment = process.env.NODE_ENV || 'development';
 const envSet = require(`./app/config/env.${environment}.js`);
 export default {
@@ -23,10 +21,6 @@ export default {
     ]
   },
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
-  /*
   ** Global CSS
   */
   css: [
@@ -35,7 +29,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/utils'
+    '@/plugins/utils',
+    '@/plugins/axios'
   ],
   /*
   ** Nuxt.js dev-modules

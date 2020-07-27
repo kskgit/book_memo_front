@@ -1,5 +1,5 @@
 import api from '~/api';
 
-export default (_, inject) => {
+export default ({}, inject) => {
   inject('api', api);
 };

@@ -3,14 +3,16 @@
     <Header class="common-header"/>
     <b-container>
       <nuxt />
+      <Loading />
     </b-container>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header.vue';
+import Loading from '@/components/Loading.vue';
 export default {
-  components: { Header },
+  components: { Header, Loading },
 }
 </script>
 
