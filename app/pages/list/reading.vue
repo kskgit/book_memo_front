@@ -50,7 +50,7 @@ export default {
     },
     // ページ数更新
     updatePageNumber(bookId, pageNumber) {
-      this.$store.dispatch('bookList/updateReadStatus', {bookId: bookId, pageNumber: pageNumber})
+      this.$store.dispatch('bookList/updatePageNumber', {bookId: bookId, pageNumber: pageNumber})
     },
     // 削除
     async deleteList(bookId) {

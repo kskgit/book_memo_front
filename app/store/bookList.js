@@ -16,7 +16,7 @@ export const actions = {
     }
     return this.$apiPut(url, params)
   },
-  updateReadStatus ({}, query) {
+  updatePageNumber ({}, query) {
     const url = 'books/' + query.bookId;
     const params = {
       id: query.bookId,
