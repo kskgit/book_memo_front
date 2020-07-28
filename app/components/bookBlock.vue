@@ -118,13 +118,13 @@ export default {
     showInReadingAndReaded() {
       return this.$route.path === '/list/reading' || this.$route.path === '/list/readed';
     },
-},
+  },
   methods:{
     imageUrl() {
       if (this.book.image) {
         return this.book.image;
-      } else if (this.book.mediumImageUrl) {
-        return this.book.mediumImageUrl;
+      } else if (this.book.largeImageUrl) {
+        return this.book.largeImageUrl;
       }
     },
     goMemoIndex() {
@@ -137,7 +137,7 @@ export default {
 
 <style>
 .image-size {
-  width: 128px;
-  height: 128px;
+  width: 200px;
+  height: 200px;
 }
 </style>

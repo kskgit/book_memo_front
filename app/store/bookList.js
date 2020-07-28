@@ -26,7 +26,7 @@ export const actions = {
       uid: localStorage.getItem('uid'),
       author: book.author,
       title: book.title,
-      image_url: book.mediumImageUrl
+      image_url: book.largeImageUrl
     }
     return this.$apiPost(url, params)
   },
