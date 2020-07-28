@@ -71,7 +71,7 @@
 
 <script>
 import axios from 'axios';
-import { apiPost } from '~/api/config';
+
 import BookList from '@/service/BookList';
 import BarcodeScaner from '@/components/BarcodeScaner';
 export default {

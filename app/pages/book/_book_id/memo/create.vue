@@ -9,7 +9,7 @@
 
 <script>
 import axios from 'axios';
-import { apiPost } from '~/api/config';
+
 import InputMemo from '@/components/InputMemo.vue';
 export default {
   components: { InputMemo },

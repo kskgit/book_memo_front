@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { apiPost } from '~/api/config';
+
 import Datepicker from 'vuejs-datepicker';
 import {ja} from 'vuejs-datepicker/dist/locale'
 export default {

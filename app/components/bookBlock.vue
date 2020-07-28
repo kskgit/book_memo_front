@@ -90,7 +90,7 @@
 
 <script>
 import axios from 'axios';
-import { apiGet } from '~/api/config';
+
 export default {
   created: function() {},
   props: {

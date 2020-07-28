@@ -61,7 +61,7 @@
 <script>
 import axios from 'axios';
 import BookBlock from '@/components/BookBlock.vue';
-import { apiPost } from '~/api/config';
+
 import BookList from '@/service/BookList'
 export default {
   components: { BookBlock },
