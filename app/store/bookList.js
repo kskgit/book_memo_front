@@ -16,6 +16,14 @@ export const actions = {
     }
     return this.$apiPut(url, params)
   },
+  updateReadStatus ({}, query) {
+    const url = 'books/' + query.bookId;
+    const params = {
+      id: query.bookId,
+      page_number: query.pageNumber
+    }
+    return this.$apiPut(url, params)
+  },
   deleteList ({}, query) {
     const url = 'books/' + query.bookId;
     return this.$apiDelete(url)

@@ -12,7 +12,9 @@
           :book="book"
           @add-readed-list="addReadedList"
           @delete-list="deleteList"
-        ></BookBlock>
+          @update-page-number="updatePageNumber"
+          v-bind:page-number.sync="book.page_number"
+        />
       </b-col>
     </b-row>
   </div>
@@ -45,6 +47,10 @@ export default {
     async addReadedList(bookId, isReaded) {
       await this.$store.dispatch('bookList/updateReadStatus', {bookId: bookId, isReaded: isReaded})
       this.$router.push('/list/readed')
+    },
+    // ページ数更新
+    updatePageNumber(bookId, pageNumber) {
+      this.$store.dispatch('bookList/updateReadStatus', {bookId: bookId, pageNumber: pageNumber})
     },
     // 削除
     async deleteList(bookId) {

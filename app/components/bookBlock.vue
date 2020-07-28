@@ -14,6 +14,9 @@
         <b-icon-eye/>
         読んでる本
       </b-badge>
+      <h5 v-if="showInReading" style="text-align:left;">
+        <b-badge variant="info">現在{{pageNumber}}ページ</b-badge>
+      </h5>
 
       <!-- タイトル -->
       <b-card-header header-tag="h4" class="mt-3">
@@ -35,17 +38,38 @@
         </b-card-text>
       </b-card-footer>
 
-
       <!-- ボタン -->
       <b-button
-        v-if="showInReadingAndReaded"
-        @click="goMemoIndex()"
+        v-if="showInReading"
+        v-b-modal.input-page-number
         variant="outline-secondary"
         class="mb-3"
       >
         ページ数を入力する
         <b-icon-pen/>
       </b-button>
+
+      <b-modal id="input-page-number" title="ページ数を入力して下さい" hide-footer>
+        <input
+          type="number"
+          class="mb-3 page-number-input"
+          @input="$emit('update:pageNumber', $event.target.value)"
+          :value="pageNumber"
+        />
+        <b-button
+          @click="updatePageNumber(book.id)"
+          variant="outline-primary"
+          :disabled="!pageNumber && pageNumber !== 0"
+        >
+          更新
+        </b-button>
+        <b-button
+          variant="outline-secondary"
+          @click="$bvModal.hide('input-page-number')"
+        >
+          キャンセル
+        </b-button>
+      </b-modal>
 
       <b-button
         v-if="showInSearch"
@@ -99,10 +123,15 @@ export default {
       required: true,
       default: {},
     },
+    pageNumber: {
+      type: Number,
+      required: false,
+      default: 0,
+    }
   },
   data: function () {
     return {
-      isShow: false
+      isShow: false,
     }
   },
   computed: {
@@ -127,9 +156,9 @@ export default {
         return this.book.largeImageUrl;
       }
     },
-    goMemoIndex() {
-      const url = '/book/' + this.book.bookId + '/memo'
-      this.$router.push({ path: url, query: { id: this.book.id } });
+    updatePageNumber(bookId) {
+      this.$bvModal.hide('input-page-number')
+      this.$emit('update-page-number', bookId, this.pageNumber)
     }
   }
 }
@@ -139,5 +168,20 @@ export default {
 .image-size {
   width: 200px;
   height: 200px;
+}
+.page-number-input {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 </style>
