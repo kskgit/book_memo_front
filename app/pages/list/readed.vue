@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-alert show variant="success" v-if="dbBooks.length >0">読んだ本一覧</b-alert>
-    <b-alert show variant="warning" v-else>読んだ本はありません</b-alert>
+    <b-alert show variant="warning" v-else-if="dbBooks.length == 0  && finishInitialize">読んだ本はありません</b-alert>
     <b-row>
       <b-col
         cols="12" sm="6" lg="4"
@@ -22,12 +22,14 @@ import axios from 'axios';
 import BookBlock from '@/components/BookBlock.vue';
 export default {
   components: { BookBlock },
-  created: function() {
-    this.getIndex();
+  created: async function() {
+    await this.getIndex();
+    this.finishInitialize = true
   },
   data: function () {
     return {
       dbBooks: [],
+      finishInitialize: false
     }
   },
   watch: {},
