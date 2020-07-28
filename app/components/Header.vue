@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<b-navbar toggleable="lg" type="dark" variant="info">
-			<b-navbar-brand href="#">Book Memo</b-navbar-brand>
+			<b-navbar-brand to="/">Book Memo</b-navbar-brand>
 
 			<b-navbar-toggle v-if= "showNavBar" target="nav-collapse"></b-navbar-toggle>
 

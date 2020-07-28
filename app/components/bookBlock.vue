@@ -11,7 +11,7 @@
         読んだ本
       </b-badge>
       <b-badge pill v-if="showInReading" variant="info" style="text-align:left; display:block; width:100px;">
-        <b-icon-eye/>
+        <b-icon-book/>
         読んでる本
       </b-badge>
       <h5 v-if="showInReading" style="text-align:left;">
@@ -59,7 +59,7 @@
         <b-button
           @click="updatePageNumber(book.id)"
           variant="outline-primary"
-          :disabled="!pageNumber && pageNumber !== 0"
+          :disabled="!pageNumber && pageNumber "
         >
           更新
         </b-button>

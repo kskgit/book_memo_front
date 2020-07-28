@@ -59,6 +59,6 @@ export default {
     }
   },
   router: {
-    middleware: ['authenticated', 'transferIndex']
+    middleware: ['authenticated']
   }
 }
