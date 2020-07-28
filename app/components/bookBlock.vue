@@ -6,10 +6,6 @@
       align="center"
     >
       <!-- バッジ -->
-      <!-- <b-badge pill v-if="showInSearch" variant="primary" style="text-align:left; display:block; width:100px;">
-        <b-icon-search/>
-        検索結果
-      </b-badge> -->
       <b-badge pill v-if="showInReaded" variant="success" style="text-align:left; display:block; width:100px;">
         <b-icon-check/>
         読んだ本

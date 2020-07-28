@@ -17,8 +17,7 @@ export default ({store, $axios}, inject) => {
     .catch(err => err.response || { noResponse: true })
   }
   const apiDelete = function  (url, params = {}, headers = {}) {
-    return $axios
-      .delete(url, {
+    return $axios.delete(url, {
         headers: headers,
         params: params,
       })
@@ -26,16 +25,13 @@ export default ({store, $axios}, inject) => {
   }
 
   const apiPost = function  (url, params = {}, headers = {}) {
-    return $axios
-      .post(url, params, {
-        headers: headers,
-      })
-      .catch(err => err.response || { noResponse: true })
+    return $axios.$post(url, params, {
+      headers: headers
+    }).catch(err => err.response || { noResponse: true })
   }
 
   const apiPut = function  (url, params = {}, headers = {}) {
-    return $axios
-      .put(url, params, {
+    return $axios.put(url, params, {
         headers: headers,
       })
       .catch(err => err.response || { noResponse: true })

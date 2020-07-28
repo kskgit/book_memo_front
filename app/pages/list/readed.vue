@@ -17,10 +17,8 @@
     </b-row>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
-import BookList from '@/service/BookList'
 import BookBlock from '@/components/BookBlock.vue';
 export default {
   components: { BookBlock },
@@ -43,13 +41,12 @@ export default {
     },
     // ステータス更新
     async backReadingList(bookId, isReaded) {
-      await BookList.updateReadStatus(bookId, isReaded);
-      this.getIndex();
+      await this.$store.dispatch('bookList/updateReadStatus', {bookId: bookId, isReaded: isReaded})
       this.$router.push('/list/reading')
     },
     // 削除
     async deleteList(bookId) {
-      await BookList.deleteList(bookId);
+      await this.$store.dispatch('bookList/deleteList', {bookId: bookId})
       this.getIndex();
     },
   }

@@ -3,6 +3,7 @@
     <!-- バーコードスキャン -->
     <b-button
       @click="startScan()"
+      variant="outline-info"
       v-if="inputMethod==='barcode' && !showScaner"
     >
       スキャン開始
@@ -18,7 +19,7 @@
 
     <!-- ファイル読込 -->
     <label v-if="inputMethod==='input'">
-      <span class="btn btn-secondary">
+      <span class="btn btn-outline-info">
           画像を設定する
           <input @change="addFile" type="file" style="display:none">
       </span>
@@ -26,6 +27,7 @@
 
     <b-button
       @click="setInputMethodBarcode()"
+      variant="outline-dark"
       v-if="inputMethod==='input'"
     >
       スキャンに戻る
@@ -102,11 +104,11 @@ export default {
   methods:{
     async addReadingList() {
       if (this.inputMethod === 'barcode'){
-        await BookList.createBookList(this.book);
+        await this.$store.dispatch('bookList/createBookList', this.book)
         this.$router.push('/list/reading');
       }
       if (this.inputMethod === 'input'){
-        await BookList.createBookListByMultipartForm(this.book);
+        await this.$store.dispatch('bookList/createBookListByMultipartForm', this.book)
         this.$router.push('/list/reading');
       }
     },

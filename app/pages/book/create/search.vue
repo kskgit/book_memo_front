@@ -101,7 +101,7 @@ export default {
       }
     },
     async addReadingList(book) {
-      await BookList.createBookList(book);
+      await this.$store.dispatch('bookList/createBookList', book)
       this.$router.push('/list/reading');
     },
   }
