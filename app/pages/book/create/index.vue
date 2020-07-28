@@ -8,7 +8,6 @@
       v-b-popover.hover.bottom="'本のバーコードから情報を読み取って登録します'"
     >
       <h3>バーコードを読み取って登録する</h3>
-      <b-icon-upc-scan/>
     </b-button>
     <b-button
       block
