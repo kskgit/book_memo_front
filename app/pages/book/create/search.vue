@@ -61,8 +61,6 @@
 <script>
 import axios from 'axios';
 import BookBlock from '@/components/BookBlock.vue';
-
-import BookList from '@/service/BookList'
 export default {
   components: { BookBlock },
   data: function () {

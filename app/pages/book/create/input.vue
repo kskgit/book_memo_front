@@ -71,8 +71,6 @@
 
 <script>
 import axios from 'axios';
-
-import BookList from '@/service/BookList';
 import BarcodeScaner from '@/components/BarcodeScaner';
 export default {
   components: { BarcodeScaner },
