@@ -45,7 +45,6 @@ export default {
       icons: true,
     }],
     '@nuxtjs/axios',
-    // '@/plugins/api.js',
   ],
   /*
   ** Build configuration

@@ -101,7 +101,7 @@
       </b-button>
 
       <b-button
-        v-if="showInReadingAndReaded"
+        v-if="showInReading || showInReaded"
         @click="$emit('delete-list', book.id)"
         variant="outline-danger"
       >
@@ -136,16 +136,13 @@ export default {
   },
   computed: {
     showInSearch() {
-      return this.$route.path === '/book/create/search';
+      return this.$route.path === '/book/create/search' || this.$route.path === '/book/create/search/';
     },
     showInReading() {
-      return this.$route.path === '/list/reading';
+      return this.$route.path === '/list/reading' || this.$route.path === '/list/reading/';
     },
     showInReaded() {
-      return this.$route.path === '/list/readed';
-    },
-    showInReadingAndReaded() {
-      return this.$route.path === '/list/reading' || this.$route.path === '/list/readed';
+      return this.$route.path === '/list/readed' || this.$route.path === '/list/readed/';
     },
   },
   methods:{
