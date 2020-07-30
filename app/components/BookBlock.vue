@@ -53,11 +53,10 @@
         <input
           type="number"
           class="mb-3 page-number-input"
-          @input="$emit('update:pageNumber', $event.target.value)"
           :value="pageNumber"
         />
         <b-button
-          @click="updatePageNumber(book.id)"
+          @click="changePageNumber"
           variant="outline-primary"
           :disabled="!pageNumber && pageNumber "
         >
@@ -107,7 +106,6 @@
       >
         削除
       </b-button>
-
     </b-card>
   </div>
 </template>
@@ -153,9 +151,10 @@ export default {
         return this.book.largeImageUrl;
       }
     },
-    updatePageNumber(bookId) {
+    changePageNumber() {
+      console.log('A', this.book.id)
       this.$bvModal.hide('input-page-number')
-      this.$emit('update-page-number', bookId, this.pageNumber)
+      this.$emit('update-page-number', this.book.id, this.pageNumber)
     }
   }
 }
