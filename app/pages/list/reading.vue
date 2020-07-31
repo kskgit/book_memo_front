@@ -9,11 +9,12 @@
         :key="index"
       >
         <BookBlock
+          ref="bookBlock"
           :book="book"
+          :book-index="index"
           @add-readed-list="addReadedList"
           @delete-list="deleteList"
           @update-page-number="updatePageNumber"
-          v-bind:page-number.sync="book.page_number"
         />
       </b-col>
     </b-row>
@@ -49,8 +50,10 @@ export default {
       this.$router.push('/list/readed')
     },
     // ページ数更新
-    updatePageNumber(bookId, pageNumber) {
-      this.$store.dispatch('bookList/updatePageNumber', {bookId: bookId, pageNumber: pageNumber})
+    async updatePageNumber(bookId, inputPageNumber, index) {
+      const res = await this.$store.dispatch('bookList/updatePageNumber', {bookId: bookId, pageNumber: inputPageNumber})
+      this.dbBooks[index].page_number = res.data.page_number
+      this.$refs.bookBlock[index].setInputPageNumber()
     },
     // 削除
     async deleteList(bookId) {

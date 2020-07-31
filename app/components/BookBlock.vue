@@ -15,7 +15,7 @@
         読んでる本
       </b-badge>
       <h5 v-if="showInReading" style="text-align:left;">
-        <b-badge variant="info">現在{{pageNumber}}ページ</b-badge>
+        <b-badge variant="info">現在{{book.page_number}}ページ</b-badge>
       </h5>
 
       <!-- タイトル -->
@@ -41,7 +41,7 @@
       <!-- ボタン -->
       <b-button
         v-if="showInReading"
-        v-b-modal.input-page-number
+        v-b-modal="`input-page-number-${bookIndex}`"
         variant="outline-secondary"
         class="mb-3"
       >
@@ -49,22 +49,22 @@
         <b-icon-pen/>
       </b-button>
 
-      <b-modal id="input-page-number" title="ページ数を入力して下さい" hide-footer>
-        <input
+      <b-modal :id="`input-page-number-${bookIndex}`" title="ページ数を入力して下さい" hide-footer>
+        <b-input
           type="number"
-          class="mb-3 page-number-input"
-          :value="pageNumber"
+          class="mb-3"
+          v-model="inputPageNumber"
         />
         <b-button
           @click="changePageNumber"
           variant="outline-primary"
-          :disabled="!pageNumber && pageNumber "
+          :disabled="!inputPageNumber"
         >
           更新
         </b-button>
         <b-button
           variant="outline-secondary"
-          @click="$bvModal.hide('input-page-number')"
+          @click="$bvModal.hide(`input-page-number-${bookIndex}`)"
         >
           キャンセル
         </b-button>
@@ -114,14 +114,16 @@
 import axios from 'axios';
 
 export default {
-  created: function() {},
+  created: function() {
+    this.setInputPageNumber()
+  },
   props: {
     book: {
       type: Object,
       required: true,
       default: {},
     },
-    pageNumber: {
+    bookIndex: {
       type: Number,
       required: false,
       default: 0,
@@ -130,6 +132,7 @@ export default {
   data: function () {
     return {
       isShow: false,
+      inputPageNumber: 0
     }
   },
   computed: {
@@ -152,9 +155,11 @@ export default {
       }
     },
     changePageNumber() {
-      console.log('A', this.book.id)
-      this.$bvModal.hide('input-page-number')
-      this.$emit('update-page-number', this.book.id, this.pageNumber)
+      this.$bvModal.hide(`input-page-number-${this.bookIndex}`)
+      this.$emit('update-page-number', this.book.id, this.inputPageNumber, this.bookIndex)
+    },
+    setInputPageNumber() {
+      this.inputPageNumber = this.book.page_number
     }
   }
 }
@@ -164,20 +169,5 @@ export default {
 .image-size {
   width: 200px;
   height: 200px;
-}
-.page-number-input {
-  display: block;
-  width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 </style>
