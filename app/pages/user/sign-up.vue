@@ -34,7 +34,6 @@
   </div>
 </template>
 <script>
-import axios from "axios"
 import firebase from "~/plugins/firebaseConfig"
 export default {
   data: function () {
@@ -53,8 +52,7 @@ export default {
           this.$router.push("/")
         })
         .catch((error) => {
-          var errorCode = error.code
-          var errorMessage = error.message
+          console.log(error)
         })
     },
   },

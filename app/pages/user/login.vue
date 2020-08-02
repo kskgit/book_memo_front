@@ -26,8 +26,8 @@
     </b-alert>
     <b-row class="mt-3">
       <b-col>
-        <span>アカウントをお持ちで無い方は</span
-        ><nuxt-link to="/user/sign-up">
+        <span>アカウントをお持ちで無い方は</span>
+        <nuxt-link to="/user/sign-up">
           こちら
         </nuxt-link>
       </b-col>
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import firebase from "~/plugins/firebaseConfig"
 
 export default {
@@ -59,7 +58,7 @@ export default {
           localStorage.setItem("uid", user.user.uid)
           this.$router.push("/")
         })
-        .catch((error) => {
+        .catch(() => {
           this.showErrorMessage = true
         })
     },

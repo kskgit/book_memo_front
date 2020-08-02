@@ -1,5 +1,5 @@
 import firebase from "~/plugins/firebaseConfig"
-export default function ({ store, redirect, route }) {
+export default function ({ redirect, route }) {
   if (route.path !== "/user/sign-up" && route.path !== "/user/login") {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

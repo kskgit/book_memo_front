@@ -70,7 +70,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import BarcodeScaner from "@/components/BarcodeScaner"
 export default {
   components: { BarcodeScaner },

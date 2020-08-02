@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import BookBlock from "@/components/BookBlock.vue"
 export default {
   components: { BookBlock },
