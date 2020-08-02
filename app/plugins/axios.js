@@ -8,6 +8,9 @@ export default ({store, $axios}, inject) => {
   $axios.interceptors.response.use(function (response) {
     store.dispatch('loading/loadingStop')
     return response;
+  }, function (err) {
+    store.dispatch('loading/loadingStop')
+    return err;
   });
 
   const apiGet = function (url, params = {}, headers = {}) {

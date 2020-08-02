@@ -39,7 +39,8 @@ export default {
     async getIndex(){
       // 初期化
       this.dbBooks = [];
-      this.dbBooks = await this.$store.dispatch('bookList/getDbBooks', {isReaded: true, uid: localStorage.getItem('uid')})
+      const res = await this.$store.dispatch('bookList/getDbBooks', {isReaded: true, uid: localStorage.getItem('uid')})
+      this.dbBooks = res.data
     },
     // ステータス更新
     async backReadingList(bookId, isReaded) {

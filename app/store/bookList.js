@@ -5,8 +5,7 @@ export const actions = {
       is_readed: query.isReaded,
       uid: query.uid
     }
-    const res = await this.$apiGet(url, params)
-    return res.data;
+    return await this.$apiGet(url, params)
   },
   updateReadStatus ({}, query) {
     const url = 'books/' + query.bookId;

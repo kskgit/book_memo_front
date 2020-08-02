@@ -42,7 +42,12 @@ export default {
     async getIndex(){
       // 初期化
       this.dbBooks = [];
-      this.dbBooks = await this.$store.dispatch('bookList/getDbBooks', {isReaded: false, uid: localStorage.getItem('uid')})
+      const res = await this.$store.dispatch('bookList/getDbBooks', {isReaded: false, uid: localStorage.getItem('uid')})
+      if (res.status === 200) {
+        this.dbBooks = res.data
+      } else {
+        this.$router.push('/error')
+      }
     },
     // ステータス更新
     async addReadedList(bookId, isReaded) {
