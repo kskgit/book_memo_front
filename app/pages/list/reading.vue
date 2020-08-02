@@ -1,12 +1,22 @@
 <template>
   <div>
-    <b-alert show variant="info" v-if="dbBooks.length >0 ">読んでる本一覧</b-alert>
-    <b-alert show variant="warning" v-else-if="dbBooks.length == 0  && finishInitialize">読んでる本はありません</b-alert>
+    <b-alert v-if="dbBooks.length > 0" show variant="info">
+      読んでる本一覧
+    </b-alert>
+    <b-alert
+      v-else-if="dbBooks.length == 0 && finishInitialize"
+      show
+      variant="warning"
+    >
+      読んでる本はありません
+    </b-alert>
     <b-row>
       <b-col
-        cols="12" sm="6" lg="4"
         v-for="(book, index) in dbBooks"
         :key="index"
+        cols="12"
+        sm="6"
+        lg="4"
       >
         <BookBlock
           ref="bookBlock"
@@ -21,51 +31,59 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-import BookBlock from '@/components/BookBlock.vue';
+import BookBlock from "@/components/BookBlock.vue"
 export default {
   components: { BookBlock },
-  created: async function() {
-    await this.getIndex();
-    this.finishInitialize = true
-  },
   data: function () {
     return {
       dbBooks: [],
-      finishInitialize: false
+      finishInitialize: false,
     }
   },
-  watch: {},
   computed: {},
-  methods:{
+  watch: {},
+  created: async function () {
+    await this.getIndex()
+    this.finishInitialize = true
+  },
+  methods: {
     // 一覧取得
-    async getIndex(){
+    async getIndex() {
       // 初期化
-      this.dbBooks = [];
-      const res = await this.$store.dispatch('bookList/getDbBooks', {isReaded: false, uid: localStorage.getItem('uid')})
+      this.dbBooks = []
+      const res = await this.$store.dispatch("bookList/getDbBooks", {
+        isReaded: false,
+        uid: localStorage.getItem("uid"),
+      })
       if (res.status === 200) {
         this.dbBooks = res.data
       } else {
-        this.$router.push('/error')
+        this.$router.push("/error")
       }
     },
     // ステータス更新
     async addReadedList(bookId, isReaded) {
-      await this.$store.dispatch('bookList/updateReadStatus', {bookId: bookId, isReaded: isReaded})
-      this.$router.push('/list/readed')
+      await this.$store.dispatch("bookList/updateReadStatus", {
+        bookId: bookId,
+        isReaded: isReaded,
+      })
+      this.$router.push("/list/readed")
     },
     // ページ数更新
     async updatePageNumber(bookId, inputPageNumber, index) {
-      const res = await this.$store.dispatch('bookList/updatePageNumber', {bookId: bookId, pageNumber: inputPageNumber})
+      const res = await this.$store.dispatch("bookList/updatePageNumber", {
+        bookId: bookId,
+        pageNumber: inputPageNumber,
+      })
       this.dbBooks[index].page_number = res.data.page_number
       this.$refs.bookBlock[index].setInputPageNumber()
     },
     // 削除
     async deleteList(bookId) {
-      await this.$store.dispatch('bookList/deleteList', {bookId: bookId})
-      this.getIndex();
+      await this.$store.dispatch("bookList/deleteList", { bookId: bookId })
+      this.getIndex()
     },
-  }
+  },
 }
 </script>
 

@@ -5,15 +5,14 @@
       label="Large Spinner"
       variant="info"
       class="loading-item"
-    ></b-spinner>
+    />
   </div>
-
 </template>
 <script>
 export default {
   computed: {
-    showLoading(){
-      return this.$store.getters['loading/showLoading']
+    showLoading() {
+      return this.$store.getters["loading/showLoading"]
     },
   },
 }

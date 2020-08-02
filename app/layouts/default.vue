@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header class="common-header"/>
+    <Header class="common-header" />
     <b-container>
       <nuxt />
       <Loading />
@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue';
-import Loading from '@/components/Loading.vue';
+import Header from "@/components/Header.vue"
+import Loading from "@/components/Loading.vue"
 export default {
   components: { Header, Loading },
 }
@@ -18,8 +18,8 @@ export default {
 
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

@@ -1,20 +1,20 @@
 <template>
   <div>
     <b-button
+      v-b-popover.hover.bottom="'本のバーコードから情報を読み取って登録します'"
       block
       size="lg"
       variant="outline-primary"
       @click="$router.push('/book/create/input')"
-      v-b-popover.hover.bottom="'本のバーコードから情報を読み取って登録します'"
     >
       <h3>バーコードを読み取って登録する</h3>
     </b-button>
     <b-button
+      v-b-popover.hover.bottom="'タイトルから本を検索して登録します'"
       block
       size="lg"
       variant="outline-info"
       @click="$router.push('/book/create/search')"
-      v-b-popover.hover.bottom="'タイトルから本を検索して登録します'"
     >
       <h3>検索して登録する</h3>
     </b-button>
@@ -28,7 +28,7 @@ export default {
   },
   computed: {},
   watch: {},
-  methods:{}
+  methods: {},
 }
 </script>
 

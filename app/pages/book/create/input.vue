@@ -2,9 +2,9 @@
   <div>
     <!-- バーコードスキャン -->
     <b-button
-      @click="startScan()"
+      v-if="inputMethod === 'barcode' && !showScaner"
       variant="outline-info"
-      v-if="inputMethod==='barcode' && !showScaner"
+      @click="startScan()"
     >
       スキャン開始
     </b-button>
@@ -18,33 +18,33 @@
     />
 
     <!-- ファイル読込 -->
-    <label v-if="inputMethod==='input'">
+    <label v-if="inputMethod === 'input'">
       <span class="btn btn-outline-info">
-          画像を設定する
-          <input @change="addFile" type="file" style="display:none">
+        画像を設定する
+        <input type="file" style="display: none;" @change="addFile" >
       </span>
     </label>
 
     <b-button
-      @click="setInputMethodBarcode()"
+      v-if="inputMethod === 'input'"
       variant="outline-dark"
-      v-if="inputMethod==='input'"
+      @click="setInputMethodBarcode()"
     >
       スキャンに戻る
     </b-button>
 
     <b-row class="mt-3">
       <b-col>
-        <b-img class="mt-3" :src="imageForDisplay" v-if="imageForDisplay"></b-img>
+        <b-img v-if="imageForDisplay" class="mt-3" :src="imageForDisplay" />
       </b-col>
     </b-row>
     <b-row class="mt-3">
       <b-col>
         <b-input
           id="inline-form-input-name"
+          v-model="book.title"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="タイトル"
-          v-model="book.title"
         />
       </b-col>
     </b-row>
@@ -52,9 +52,9 @@
       <b-col>
         <b-input
           id="inline-form-input-name"
+          v-model="book.author"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="著者"
-          v-model="book.author"
         />
       </b-col>
     </b-row>
@@ -64,50 +64,53 @@
       @click="addReadingList()"
     >
       読んでるリストに追加する
-      <b-icon-plus/>
+      <b-icon-plus />
     </b-button>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import BarcodeScaner from '@/components/BarcodeScaner';
+import axios from "axios"
+import BarcodeScaner from "@/components/BarcodeScaner"
 export default {
   components: { BarcodeScaner },
   data: function () {
     return {
-      searchWord: '',
-      inputImage: '',
+      searchWord: "",
+      inputImage: "",
       showScaner: false,
       book: {
-        author: '',
-        title: '',
-        imageFile: ''
+        author: "",
+        title: "",
+        imageFile: "",
       },
-      inputMethod: 'barcode'
+      inputMethod: "barcode",
     }
   },
   computed: {
     imageForDisplay() {
-      if (this.inputMethod === 'barcode' && this.book.largeImageUrl) {
+      if (this.inputMethod === "barcode" && this.book.largeImageUrl) {
         return this.book.largeImageUrl
       }
-      if (this.inputMethod === 'input' && this.inputImage) {
+      if (this.inputMethod === "input" && this.inputImage) {
         return this.inputImage
       }
       return null
-    }
+    },
   },
   watch: {},
-  methods:{
+  methods: {
     async addReadingList() {
-      if (this.inputMethod === 'barcode'){
-        await this.$store.dispatch('bookList/createBookList', this.book)
-        this.$router.push('/list/reading');
+      if (this.inputMethod === "barcode") {
+        await this.$store.dispatch("bookList/createBookList", this.book)
+        this.$router.push("/list/reading")
       }
-      if (this.inputMethod === 'input'){
-        await this.$store.dispatch('bookList/createBookListByMultipartForm', this.book)
-        this.$router.push('/list/reading');
+      if (this.inputMethod === "input") {
+        await this.$store.dispatch(
+          "bookList/createBookListByMultipartForm",
+          this.book
+        )
+        this.$router.push("/list/reading")
       }
     },
     addFile(event) {
@@ -122,7 +125,7 @@ export default {
     },
     async searchRakutenApi(isbnCode) {
       const query = {
-        isbnjan: isbnCode
+        isbnjan: isbnCode,
       }
       const res = await this.$searchByRakutenBookAPI(query)
       this.showScaner = false
@@ -130,19 +133,19 @@ export default {
     },
     startScan() {
       this.showScaner = true
-      this.$refs.scaner.initQuagga();
+      this.$refs.scaner.initQuagga()
     },
     stopScan(quagga) {
       this.showScaner = false
-      quagga.stop();
+      quagga.stop()
     },
     setInputMethodInput() {
-      this.inputMethod='input'
+      this.inputMethod = "input"
     },
     setInputMethodBarcode() {
-      this.inputMethod='barcode'
-    }
-  }
+      this.inputMethod = "barcode"
+    },
+  },
 }
 </script>
 
