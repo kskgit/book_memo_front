@@ -98,8 +98,12 @@ export default {
       }
     },
     async addReadingList(book) {
-      await this.$store.dispatch("bookList/createBookList", book)
-      this.$router.push("/list/reading")
+      const res = await this.$store.dispatch("bookList/createBookList", book)
+      if (res.status === 201) {
+        this.$router.push("/list/reading")
+      } else {
+        this.$router.push("/error")
+      }
     },
   },
 }

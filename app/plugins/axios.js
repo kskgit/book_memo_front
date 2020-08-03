@@ -35,7 +35,7 @@ export default ({ store, $axios }, inject) => {
 
   const apiPost = function (url, params = {}, headers = {}) {
     return $axios
-      .$post(url, params, {
+      .post(url, params, {
         headers: headers,
       })
       .catch((err) => err.response || { noResponse: true })

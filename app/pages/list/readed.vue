@@ -60,16 +60,26 @@ export default {
     },
     // ステータス更新
     async backReadingList(bookId, isReaded) {
-      await this.$store.dispatch("bookList/updateReadStatus", {
+      const res = await this.$store.dispatch("bookList/updateReadStatus", {
         bookId: bookId,
         isReaded: isReaded,
       })
-      this.$router.push("/list/reading")
+      if (res.status === 204) {
+        this.$router.push("/list/reading")
+      } else {
+        this.$router.push("/error")
+      }
     },
     // 削除
     async deleteList(bookId) {
-      await this.$store.dispatch("bookList/deleteList", { bookId: bookId })
-      this.getIndex()
+      const res = await this.$store.dispatch("bookList/deleteList", {
+        bookId: bookId,
+      })
+      if (res.status === 204) {
+        this.getIndex()
+      } else {
+        this.$router.push("/error")
+      }
     },
   },
 }

@@ -63,11 +63,15 @@ export default {
     },
     // ステータス更新
     async addReadedList(bookId, isReaded) {
-      await this.$store.dispatch("bookList/updateReadStatus", {
+      const res = await this.$store.dispatch("bookList/updateReadStatus", {
         bookId: bookId,
         isReaded: isReaded,
       })
-      this.$router.push("/list/readed")
+      if (res.status === 204) {
+        this.$router.push("/list/readed")
+      } else {
+        this.$router.push("/error")
+      }
     },
     // ページ数更新
     async updatePageNumber(bookId, inputPageNumber, index) {
@@ -75,13 +79,23 @@ export default {
         bookId: bookId,
         pageNumber: inputPageNumber,
       })
-      this.dbBooks[index].page_number = res.data.page_number
-      this.$refs.bookBlock[index].setInputPageNumber()
+      if (res.status === 204) {
+        this.dbBooks[index].page_number = res.data.page_number
+        this.$refs.bookBlock[index].setInputPageNumber()
+      } else {
+        this.$router.push("/error")
+      }
     },
     // 削除
     async deleteList(bookId) {
-      await this.$store.dispatch("bookList/deleteList", { bookId: bookId })
-      this.getIndex()
+      const res = await this.$store.dispatch("bookList/deleteList", {
+        bookId: bookId,
+      })
+      if (res.status === 204) {
+        this.getIndex()
+      } else {
+        this.$router.push("/error")
+      }
     },
   },
 }

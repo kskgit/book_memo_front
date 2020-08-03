@@ -21,7 +21,7 @@
     <label v-if="inputMethod === 'input'">
       <span class="btn btn-outline-info">
         画像を設定する
-        <input type="file" style="display: none;" @change="addFile" >
+        <input type="file" style="display: none;" @change="addFile" />
       </span>
     </label>
 
@@ -101,15 +101,26 @@ export default {
   methods: {
     async addReadingList() {
       if (this.inputMethod === "barcode") {
-        await this.$store.dispatch("bookList/createBookList", this.book)
-        this.$router.push("/list/reading")
+        const res = await this.$store.dispatch(
+          "bookList/createBookList",
+          this.book
+        )
+        if (res.status === 201) {
+          this.$router.push("/list/reading")
+        } else {
+          this.$router.push("/error")
+        }
       }
       if (this.inputMethod === "input") {
-        await this.$store.dispatch(
+        const res = await this.$store.dispatch(
           "bookList/createBookListByMultipartForm",
           this.book
         )
-        this.$router.push("/list/reading")
+        if (res.status === 201) {
+          this.$router.push("/list/reading")
+        } else {
+          this.$router.push("/error")
+        }
       }
     },
     addFile(event) {
