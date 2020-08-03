@@ -1,11 +1,11 @@
 export const actions = {
-  async getDbBooks(_, query) {
+  getDbBooks(_, query) {
     const url = "books"
     const params = {
       is_readed: query.isReaded,
       uid: query.uid,
     }
-    return await this.$apiGet(url, params)
+    return this.$apiGet(url, params)
   },
   updateReadStatus(_, query) {
     const url = "books/" + query.bookId

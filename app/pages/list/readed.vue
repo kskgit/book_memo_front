@@ -52,7 +52,11 @@ export default {
         isReaded: true,
         uid: localStorage.getItem("uid"),
       })
-      this.dbBooks = res.data
+      if (res.status === 200) {
+        this.dbBooks = res.data
+      } else {
+        this.$router.push("/error")
+      }
     },
     // ステータス更新
     async backReadingList(bookId, isReaded) {

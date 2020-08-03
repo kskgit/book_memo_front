@@ -25,7 +25,7 @@
       </h5>
 
       <!-- タイトル -->
-      <b-card-header header-tag="h4" class="mt-3">
+      <b-card-header header-tag="h5" class="mt-3">
         <b-card-text>
           {{ book.title }}
         </b-card-text>
