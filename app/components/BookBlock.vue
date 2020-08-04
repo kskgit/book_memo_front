@@ -49,7 +49,7 @@
       <b-button
         v-if="showInReading"
         v-b-modal="`input-page-number-${bookIndex}`"
-        variant="outline-secondary"
+        variant="info"
         class="mb-3"
       >
         ページ数を入力する
@@ -63,7 +63,7 @@
       >
         <b-input v-model="inputPageNumber" type="number" class="mb-3" />
         <b-button
-          variant="outline-primary"
+          variant="primary"
           :disabled="!inputPageNumber"
           @click="changePageNumber"
         >
@@ -79,7 +79,7 @@
 
       <b-button
         v-if="showInSearch"
-        variant="outline-primary"
+        variant="primary"
         @click="$emit('add-reading-list', book)"
       >
         読んでるリストに追加する
@@ -88,7 +88,7 @@
 
       <b-button
         v-if="showInReaded"
-        variant="outline-primary"
+        variant="primary"
         class="mb-3"
         @click="$emit('back-reading-list', book.id, false)"
       >
@@ -98,7 +98,7 @@
 
       <b-button
         v-if="showInReading"
-        variant="outline-primary"
+        variant="primary"
         class="mb-3"
         @click="$emit('add-readed-list', book.id, true)"
       >

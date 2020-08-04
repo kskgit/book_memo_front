@@ -3,7 +3,7 @@
     <!-- バーコードスキャン -->
     <b-button
       v-if="inputMethod === 'barcode' && !showScaner"
-      variant="outline-info"
+      variant="primary"
       @click="startScan()"
     >
       スキャン開始
@@ -19,7 +19,7 @@
 
     <!-- ファイル読込 -->
     <label v-if="inputMethod === 'input'">
-      <span class="btn btn-outline-info">
+      <span class="btn btn-primary">
         画像を設定する
         <input type="file" style="display: none;" @change="addFile" />
       </span>
@@ -60,7 +60,7 @@
     </b-row>
     <b-button
       class="mb-2 mr-sm-2 mb-sm-0 mt-3"
-      variant="outline-primary"
+      variant="primary"
       @click="addReadingList()"
     >
       読んでるリストに追加する
