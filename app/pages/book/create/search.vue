@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-row cols="8">
-      <b-col>
+    <b-row>
+      <b-col cols="6">
         <b-input
           id="inline-form-input-name"
           v-model="searchWord"
@@ -10,13 +10,22 @@
           @keyup.enter="getResult(true)"
         />
       </b-col>
-      <b-col cols="4">
+      <b-col cols="3">
         <b-button
           class="mb-2 mr-sm-2 mb-sm-0"
           variant="primary"
           @click="getResult(true)"
         >
           検索
+        </b-button>
+      </b-col>
+      <b-col cols="3">
+        <b-button
+          class="mb-2 mr-sm-2 mb-sm-0"
+          variant="outline-dark"
+          @click="$router.push('/book/create')"
+        >
+          戻る
         </b-button>
       </b-col>
     </b-row>

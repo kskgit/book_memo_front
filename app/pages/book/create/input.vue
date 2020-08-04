@@ -1,5 +1,20 @@
 <template>
   <div>
+    <b-row class="mt-3">
+      <b-col>
+        <b-img
+          v-if="imageForDisplay"
+          class="mt-3 image-size"
+          :src="imageForDisplay"
+        />
+        <b-img
+          v-else-if="!showScaner"
+          class="mt-3 image-size"
+          src="@/assets/m_e_others_500.jpg"
+        />
+      </b-col>
+    </b-row>
+
     <!-- バーコードスキャン -->
     <b-button
       v-if="inputMethod === 'barcode' && !showScaner"
@@ -14,14 +29,14 @@
       ref="scaner"
       @search-rakuten-api="searchRakutenApi"
       @stop-scan="stopScan"
-      @set-input-method-input="setInputMethodInput"
+      @set-input-method="setInputMethod"
     />
 
     <!-- ファイル読込 -->
     <label v-if="inputMethod === 'input'">
       <span class="btn btn-primary">
         画像を設定する
-        <input type="file" style="display: none;" @change="addFile" />
+        <input type="file" style="display: none;" @change="addFile" >
       </span>
     </label>
 
@@ -33,11 +48,6 @@
       スキャンに戻る
     </b-button>
 
-    <b-row class="mt-3">
-      <b-col>
-        <b-img v-if="imageForDisplay" class="mt-3" :src="imageForDisplay" />
-      </b-col>
-    </b-row>
     <b-row class="mt-3">
       <b-col>
         <b-input
@@ -65,6 +75,13 @@
     >
       読んでるリストに追加する
       <b-icon-plus />
+    </b-button>
+    <b-button
+      class="mb-2 mr-sm-2 mb-sm-0 mt-3"
+      variant="outline-dark"
+      @click="$router.push('/book/create')"
+    >
+      戻る
     </b-button>
   </div>
 </template>
@@ -149,8 +166,9 @@ export default {
       this.showScaner = false
       quagga.stop()
     },
-    setInputMethodInput() {
+    setInputMethod(quagga) {
       this.inputMethod = "input"
+      quagga.stop()
     },
     setInputMethodBarcode() {
       this.inputMethod = "barcode"
@@ -159,4 +177,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.image-size {
+  width: auto;
+  height: auto;
+}
+</style>

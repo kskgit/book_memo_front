@@ -117,7 +117,7 @@ export default {
     },
     setInputMethodInput() {
       this.stopScan()
-      this.$emit("set-input-method-input")
+      this.$emit("set-input-method", Quagga)
     },
   },
 }
