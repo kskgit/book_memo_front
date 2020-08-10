@@ -4,12 +4,12 @@
       <b-col>
         <b-img
           v-if="imageForDisplay"
-          class="mt-3 image-size"
+          class="mt-3 mb-3 image-size"
           :src="imageForDisplay"
         />
         <b-img
           v-else-if="!showScaner"
-          class="mt-3 image-size"
+          class="mt-3 mb-3 image-size"
           src="@/assets/m_e_others_500.jpg"
         />
       </b-col>
