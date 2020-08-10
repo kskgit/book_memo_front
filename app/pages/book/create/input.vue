@@ -2,6 +2,7 @@
   <div>
     <b-row class="mt-3">
       <b-col>
+        <b-icon-x-circle v-if="imageForDisplay" @click="clearBook()"/>
         <b-img
           v-if="imageForDisplay"
           class="mt-3 mb-3 image-size"
@@ -36,7 +37,7 @@
     <label v-if="inputMethod === 'input'">
       <span class="btn btn-primary">
         画像を設定する
-        <input type="file" style="display: none;" @change="addFile" >
+        <input type="file" style="display: none;" @change="addFile">
       </span>
     </label>
 
@@ -172,6 +173,14 @@ export default {
     },
     setInputMethodBarcode() {
       this.inputMethod = "barcode"
+    },
+    clearBook() {
+      if (this.book.largeImageUrl) {
+        this.book = {}
+      }
+      if (this.inputImage) {
+        this.inputImage = ""
+      }
     },
   },
 }
