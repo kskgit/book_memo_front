@@ -96,11 +96,7 @@ export default {
       searchWord: "",
       inputImage: "",
       showScaner: false,
-      book: {
-        author: "",
-        title: "",
-        imageFile: "",
-      },
+      book: {},
       inputMethod: "barcode",
     }
   },
@@ -160,6 +156,7 @@ export default {
       this.book = res.data.Items[0].Item
     },
     startScan() {
+      this.clearBook()
       this.showScaner = true
       this.$refs.scaner.initQuagga()
     },
