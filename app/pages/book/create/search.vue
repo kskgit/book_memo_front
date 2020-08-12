@@ -7,19 +7,18 @@
           v-model="searchWord"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="タイトル"
-          @keyup.enter="getResult(true)"
+          @keypress="getResult(true)"
         />
       </b-col>
-      <b-col cols="3">
+      <b-col cols="6">
         <b-button
           class="mb-2 mr-sm-2 mb-sm-0"
           variant="primary"
+          :disabled="!searchWord"
           @click="getResult(true)"
         >
           検索
         </b-button>
-      </b-col>
-      <b-col cols="3">
         <b-button
           class="mb-2 mr-sm-2 mb-sm-0"
           variant="outline-dark"
@@ -38,6 +37,7 @@
           :per-page="pageNationItems.perPage"
           aria-controls="my-table"
           class="mt-3"
+          align="fill"
         />
       </b-col>
     </b-row>
@@ -61,6 +61,7 @@
           :per-page="pageNationItems.perPage"
           aria-controls="my-table"
           class="mt-3"
+          align="fill"
         />
       </b-col>
     </b-row>
