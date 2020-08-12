@@ -61,20 +61,33 @@
         title="ページ数を入力して下さい"
         hide-footer
       >
-        <b-input v-model="inputPageNumber" type="number" class="mb-3" />
-        <b-button
-          variant="primary"
-          :disabled="!inputPageNumber"
-          @click="changePageNumber"
-        >
-          更新
-        </b-button>
-        <b-button
-          variant="outline-secondary"
-          @click="$bvModal.hide(`input-page-number-${bookIndex}`)"
-        >
-          キャンセル
-        </b-button>
+        <ValidationObserver v-slot="{ invalid }">
+          <ValidationProvider v-slot="{ errors }" rules="required">
+            <b-input v-model="inputPageNumber" type="number" />
+            <b-row class="mb-3">
+              <b-col>
+                <span class="text-danger">{{ errors[0] }}</span>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <b-button
+                  variant="primary"
+                  :disabled="invalid"
+                  @click="changePageNumber"
+                >
+                  更新
+                </b-button>
+                <b-button
+                  variant="outline-secondary"
+                  @click="$bvModal.hide(`input-page-number-${bookIndex}`)"
+                >
+                  キャンセル
+                </b-button>
+              </b-col>
+            </b-row>
+          </ValidationProvider>
+        </ValidationObserver>
       </b-modal>
 
       <b-button
@@ -118,6 +131,7 @@
 </template>
 
 <script>
+import { ValidationProvider, ValidationObserver } from "vee-validate"
 export default {
   props: {
     book: {
@@ -130,6 +144,7 @@ export default {
       default: 0,
     },
   },
+  components: { ValidationProvider, ValidationObserver },
   data: function () {
     return {
       isShow: false,
