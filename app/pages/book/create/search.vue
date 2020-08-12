@@ -7,7 +7,8 @@
           v-model="searchWord"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="タイトル"
-          @keypress="getResult(true)"
+          @keypress="canStartSearch = true"
+          @keyup.enter="getResult(true)"
         />
       </b-col>
       <b-col cols="6">
@@ -81,6 +82,7 @@ export default {
         totalRows: 0,
         perPage: 1,
       },
+      canStartSearch: false,
     }
   },
   computed: {},
@@ -91,6 +93,9 @@ export default {
   },
   methods: {
     async getResult(research = false) {
+      if (!this.canStartSearch) {
+        return
+      }
       const query = {
         keyword: this.searchWord,
         page: this.pageNationItems.currentPage,
@@ -101,6 +106,7 @@ export default {
       if (research) {
         this.pageNationItems.currentPage = 1
       }
+      this.canStartSearch = false
     },
     imageUrl(book) {
       if (book.volumeInfo.imageLinks) {
