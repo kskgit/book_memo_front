@@ -30,7 +30,8 @@ export default {
   */
   plugins: [
     '@/plugins/utils',
-    '@/plugins/axios'
+    '@/plugins/axios',
+    '@/plugins/veeValidate.js'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -50,13 +51,6 @@ export default {
   ** Build configuration
   */
   env: envSet,
-  build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend (config, ctx) {
-    }
-  },
   router: {
     middleware: ['authenticated']
   }
