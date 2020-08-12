@@ -72,6 +72,9 @@
           />
         </b-col>
       </b-row>
+      <b-alert v-if="showScanError" variant="danger" show>
+        検索に失敗しました
+      </b-alert>
       <b-button
         class="mb-2 mr-sm-2 mb-sm-0 mt-3"
         variant="primary"
@@ -104,6 +107,7 @@ export default {
       showScaner: false,
       book: {},
       inputMethod: "barcode",
+      showScanError: false,
     }
   },
   computed: {
@@ -159,7 +163,11 @@ export default {
       }
       const res = await this.$searchByRakutenBookAPI(query)
       this.showScaner = false
-      this.book = res.data.Items[0].Item
+      if (res.data.Items.length) {
+        this.book = res.data.Items[0].Item
+      } else {
+        this.showScanError = true
+      }
     },
     startScan() {
       this.clearBook()
