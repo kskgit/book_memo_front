@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-breadcrumb :items="breadcrumbItems" />
     <b-alert v-if="dbBooks.length > 0" show variant="info">
       読んでる本一覧
     </b-alert>
@@ -38,6 +39,16 @@ export default {
     return {
       dbBooks: [],
       finishInitialize: false,
+      breadcrumbItems: [
+        {
+          text: "トップ",
+          to: "/",
+        },
+        {
+          text: "読んでる本",
+          active: true,
+        },
+      ],
     }
   },
   computed: {},

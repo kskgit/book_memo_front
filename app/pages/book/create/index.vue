@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-breadcrumb :items="breadcrumbItems" />
     <b-button
       v-b-popover.hover.bottom="'本のバーコードから情報を読み取って登録します'"
       block
@@ -24,7 +25,18 @@
 <script>
 export default {
   data: function () {
-    return {}
+    return {
+      breadcrumbItems: [
+        {
+          text: "トップ",
+          to: "/",
+        },
+        {
+          text: "本を追加する",
+          active: true,
+        },
+      ],
+    }
   },
   computed: {},
   watch: {},

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-breadcrumb :items="breadcrumbItems" />
     <ValidationObserver v-slot="{ invalid }">
       <b-row class="mt-3">
         <b-col>
@@ -84,13 +85,6 @@
         読んでるリストに追加する
         <b-icon-plus />
       </b-button>
-      <b-button
-        class="mb-2 mr-sm-2 mb-sm-0 mt-3"
-        variant="outline-dark"
-        @click="$router.push('/book/create')"
-      >
-        戻る
-      </b-button>
     </ValidationObserver>
   </div>
 </template>
@@ -108,6 +102,20 @@ export default {
       book: {},
       inputMethod: "barcode",
       showScanError: false,
+      breadcrumbItems: [
+        {
+          text: "トップ",
+          to: "/",
+        },
+        {
+          text: "本を追加する",
+          to: "/book/create",
+        },
+        {
+          text: "バーコードを読み取って登録する",
+          active: true,
+        },
+      ],
     }
   },
   computed: {

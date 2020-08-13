@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-breadcrumb :items="breadcrumbItems" />
     <b-row>
       <b-col cols="6">
         <b-input
@@ -19,13 +20,6 @@
           @click="getResult(true)"
         >
           検索
-        </b-button>
-        <b-button
-          class="mb-2 mr-sm-2 mb-sm-0"
-          variant="outline-dark"
-          @click="$router.push('/book/create')"
-        >
-          戻る
         </b-button>
       </b-col>
     </b-row>
@@ -83,6 +77,20 @@ export default {
         perPage: 1,
       },
       canStartSearch: false,
+      breadcrumbItems: [
+        {
+          text: "トップ",
+          to: "/",
+        },
+        {
+          text: "本を追加する",
+          to: "/book/create",
+        },
+        {
+          text: "検索して登録する",
+          active: true,
+        },
+      ],
     }
   },
   computed: {},
