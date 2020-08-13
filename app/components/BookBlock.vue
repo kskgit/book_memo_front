@@ -105,8 +105,8 @@
         class="mb-3"
         @click="$emit('back-reading-list', book.id, false)"
       >
-        読んでるリストに追加する
-        <b-icon-plus />
+        <b-icon icon="arrow-left" variant="light" />
+        読んでるリストに戻す
       </b-button>
 
       <b-button
@@ -116,7 +116,7 @@
         @click="$emit('add-readed-list', book.id, true)"
       >
         読んだリストに追加する
-        <b-icon-plus />
+        <b-icon-check />
       </b-button>
 
       <b-button
