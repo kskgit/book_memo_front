@@ -8,7 +8,10 @@
       variant="info"
       @click="$router.push('/book/create/input')"
     >
-      <h3>バーコードを読み取って登録する</h3>
+      <h4>
+        <b-icon-upc-scan />
+        バーコードを読み取って登録する
+      </h4>
     </b-button>
     <b-button
       v-b-popover.hover.bottom="'タイトルから本を検索して登録します'"
@@ -17,7 +20,10 @@
       variant="info"
       @click="$router.push('/book/create/search')"
     >
-      <h3>検索して登録する</h3>
+      <h4>
+        <b-icon-search />
+        検索して登録する
+      </h4>
     </b-button>
   </div>
 </template>

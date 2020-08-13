@@ -3,6 +3,7 @@
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand to="/">
         Book Memo
+        <b-icon-book-half />
       </b-navbar-brand>
 
       <b-navbar-toggle v-if="showNavBar" target="nav-collapse" />

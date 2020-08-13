@@ -17,7 +17,7 @@
           class="mb-2 mr-sm-2 mb-sm-0"
           variant="primary"
           :disabled="!searchWord"
-          @click="getResult(true)"
+          @click="searchByButton(true)"
         >
           検索
         </b-button>
@@ -100,6 +100,10 @@ export default {
     },
   },
   methods: {
+    async searchByButton(research = false) {
+      this.canStartSearch = true
+      this.getResult(research)
+    },
     async getResult(research = false) {
       if (!this.canStartSearch) {
         return

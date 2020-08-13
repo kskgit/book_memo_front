@@ -105,7 +105,7 @@
         class="mb-3"
         @click="$emit('back-reading-list', book.id, false)"
       >
-        <b-icon icon="arrow-left" variant="light" />
+        <b-icon-arrow90deg-left />
         読んでるリストに戻す
       </b-button>
 
