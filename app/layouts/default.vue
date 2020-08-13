@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="default-color">
     <Header class="common-header" />
     <b-container>
       <nuxt />
@@ -30,5 +30,8 @@ html {
 }
 .common-header {
   margin-bottom: 20px;
+}
+body {
+  background: #ffffee;
 }
 </style>
