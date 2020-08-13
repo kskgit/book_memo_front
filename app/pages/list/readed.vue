@@ -1,11 +1,8 @@
 <template>
   <div>
     <b-breadcrumb :items="breadcrumbItems" />
-    <b-alert v-if="dbBooks.length > 0" show variant="success">
-      読んだ本一覧
-    </b-alert>
     <b-alert
-      v-else-if="dbBooks.length == 0 && finishInitialize"
+      v-if="dbBooks.length == 0 && finishInitialize"
       show
       variant="warning"
     >
