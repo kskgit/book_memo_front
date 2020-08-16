@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand to="/">
-        Book Memo
+        SHIORI
         <b-icon-book-half />
       </b-navbar-brand>
 
