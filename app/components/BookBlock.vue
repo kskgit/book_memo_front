@@ -135,13 +135,27 @@
         <b-col>
           <b-button
             v-if="showInReading || showInReaded"
+            v-b-modal="`delete-confirm-modal${bookIndex}`"
             variant="outline-danger"
-            @click="$emit('delete-list', book.id)"
           >
             削除
           </b-button>
         </b-col>
       </b-row>
+      <!-- 削除確認モーダル -->
+      <b-modal
+        :id="`delete-confirm-modal${bookIndex}`"
+        title="本当に削除しますか？"
+        hide-footer
+      >
+        <b-button
+          variant="danger"
+          class="mb-3"
+          @click="$emit('delete-list', book.id)"
+        >
+          削除する
+        </b-button>
+      </b-modal>
     </b-card>
   </div>
 </template>
