@@ -87,7 +87,7 @@ export default {
         bookId: bookId,
         pageNumber: inputPageNumber,
       })
-      if (res.status === 204) {
+      if (res.status === 200) {
         this.dbBooks[index].page_number = res.data.page_number
         this.$refs.bookBlock[index].setInputPageNumber()
       } else {
