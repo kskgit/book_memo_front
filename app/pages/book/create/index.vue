@@ -2,7 +2,6 @@
   <div>
     <b-breadcrumb :items="breadcrumbItems" />
     <b-button
-      v-b-popover.hover.bottom="'本のバーコードから情報を読み取って登録します'"
       block
       size="lg"
       variant="info"
@@ -14,7 +13,6 @@
       </h4>
     </b-button>
     <b-button
-      v-b-popover.hover.bottom="'タイトルから本を検索して登録します'"
       block
       size="lg"
       variant="info"
