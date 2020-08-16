@@ -25,8 +25,15 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  opacity: 0.3;
+  background-color: white;
 }
 .loading-item {
   margin-top: 50%;
+}
+@media screen and (min-width: 1200px) {
+  .loading-item {
+    margin-top: 20%;
+  }
 }
 </style>

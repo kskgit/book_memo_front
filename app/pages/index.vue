@@ -6,7 +6,7 @@
       variant="info"
       @click="$router.push('/book/create/')"
     >
-      <h4>本を追加する<b-icon-plus class="ml-2" /></h4>
+      <h4>本を追加する<b-icon-plus /></h4>
     </b-button>
     <b-button
       block

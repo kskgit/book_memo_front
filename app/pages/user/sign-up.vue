@@ -34,7 +34,7 @@
       <b-row class="mt-3">
         <b-col>
           <nuxt-link to="/user/login">
-            ログイン
+            ログインページへ
           </nuxt-link>
         </b-col>
       </b-row>
