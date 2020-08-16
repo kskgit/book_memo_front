@@ -6,7 +6,7 @@
     <b-button variant="info" @click="setInputMethodInput">
       読み取りが出来ない場合はこちら
     </b-button>
-    <b-button variant="outline-danger" @click="stopScan">
+    <b-button class="mt-3" variant="outline-danger" @click="stopScan">
       停止
     </b-button>
   </div>

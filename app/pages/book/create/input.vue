@@ -142,8 +142,7 @@ export default {
         } else {
           this.$router.push("/error")
         }
-      }
-      if (this.inputMethod === "input") {
+      } else if (this.inputMethod === "input") {
         const res = await this.$store.dispatch(
           "bookList/createBookListByMultipartForm",
           this.book

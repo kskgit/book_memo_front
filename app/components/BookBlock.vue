@@ -149,6 +149,7 @@
 <script>
 import { ValidationProvider, ValidationObserver } from "vee-validate"
 export default {
+  components: { ValidationProvider, ValidationObserver },
   props: {
     book: {
       type: Object,
@@ -160,7 +161,6 @@ export default {
       default: 0,
     },
   },
-  components: { ValidationProvider, ValidationObserver },
   data: function () {
     return {
       isShow: false,
