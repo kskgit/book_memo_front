@@ -72,7 +72,7 @@ export default {
         bookId: bookId,
         isReaded: isReaded,
       })
-      if (res.status === 204) {
+      if (res.status === 200) {
         this.$router.push("/list/reading")
       } else {
         this.$router.push("/error")
