@@ -90,42 +90,58 @@
         </ValidationObserver>
       </b-modal>
 
-      <b-button
-        v-if="showInSearch"
-        variant="primary"
-        @click="$emit('add-reading-list', book)"
-      >
-        読んでるリストに追加する
-        <b-icon-plus />
-      </b-button>
+      <b-row>
+        <b-col>
+          <b-button
+            v-if="showInSearch"
+            variant="primary"
+            @click="$emit('add-reading-list', book)"
+          >
+            読んでるリストに追加する
+            <b-icon-plus />
+          </b-button>
+        </b-col>
+      </b-row>
 
-      <b-button
-        v-if="showInReaded"
-        variant="primary"
-        class="mb-3"
-        @click="$emit('back-reading-list', book.id, false)"
-      >
-        <b-icon-arrow90deg-left />
-        読んでるリストに戻す
-      </b-button>
+      <b-row>
+        <b-col>
+          <b-button
+            v-if="showInReaded"
+            variant="primary"
+            class="mb-3"
+            @click="$emit('back-reading-list', book.id, false)"
+          >
+            <b-icon-arrow90deg-left />
+            読んでるリストに戻す
+          </b-button>
+        </b-col>
+      </b-row>
 
-      <b-button
-        v-if="showInReading"
-        variant="primary"
-        class="mb-3"
-        @click="$emit('add-readed-list', book.id, true)"
-      >
-        読んだリストに追加する
-        <b-icon-check />
-      </b-button>
+      <b-row>
+        <b-col>
+          <b-button
+            v-if="showInReading"
+            variant="primary"
+            class="mb-3"
+            @click="$emit('add-readed-list', book.id, true)"
+          >
+            読んだリストに追加する
+            <b-icon-check />
+          </b-button>
+        </b-col>
+      </b-row>
 
-      <b-button
-        v-if="showInReading || showInReaded"
-        variant="outline-danger"
-        @click="$emit('delete-list', book.id)"
-      >
-        削除
-      </b-button>
+      <b-row>
+        <b-col>
+          <b-button
+            v-if="showInReading || showInReaded"
+            variant="outline-danger"
+            @click="$emit('delete-list', book.id)"
+          >
+            削除
+          </b-button>
+        </b-col>
+      </b-row>
     </b-card>
   </div>
 </template>
