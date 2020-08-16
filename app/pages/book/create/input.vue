@@ -39,7 +39,7 @@
       <label v-if="inputMethod === 'input'">
         <span class="btn btn-primary">
           画像を設定する
-          <input type="file" style="display: none;" @change="addFile" />
+          <input type="file" style="display: none;" @change="addFile" >
         </span>
       </label>
 
@@ -99,7 +99,10 @@ export default {
       searchWord: "",
       inputImage: "",
       showScaner: false,
-      book: {},
+      book: {
+        title: "",
+        author: "",
+      },
       inputMethod: "barcode",
       showScanError: false,
       breadcrumbItems: [
