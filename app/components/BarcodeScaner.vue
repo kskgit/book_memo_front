@@ -3,12 +3,20 @@
     <div id="interactive" class="viewport">
       <div class="detect-area" />
     </div>
-    <b-button variant="info" @click="setInputMethodInput">
-      読み取りが出来ない場合はこちら
-    </b-button>
-    <b-button class="mt-3" variant="outline-danger" @click="stopScan">
-      停止
-    </b-button>
+    <b-row>
+      <b-col>
+        <b-button variant="info" @click="setInputMethodInput">
+          読み取りが出来ない場合はこちら
+        </b-button>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-button class="mt-3" variant="outline-danger" @click="stopScan">
+          停止
+        </b-button>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
