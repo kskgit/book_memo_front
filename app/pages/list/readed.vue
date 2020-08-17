@@ -18,6 +18,7 @@
       >
         <BookBlock
           :book="book"
+          :book-index="index"
           @back-reading-list="backReadingList"
           @delete-list="deleteList"
         />
