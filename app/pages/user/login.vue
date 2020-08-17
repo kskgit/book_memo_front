@@ -28,9 +28,24 @@
             <span class="text-danger">{{ errors[0] }}</span>
           </b-col>
         </b-row>
-        <b-button class="mt-3" :disabled="invalid" @click="signIn()">
-          ログイン
-        </b-button>
+        <b-row>
+          <b-col>
+            <b-button class="mt-3" :disabled="invalid" @click="signIn()">
+              ログイン
+            </b-button>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <button
+              type="button"
+              class="buttonImage mt-3"
+              @click="signInByGoogle()"
+            >
+              <img src="../../static/btn_google_signin_light_normal_web.png">
+            </button>
+          </b-col>
+        </b-row>
         <b-alert v-if="showErrorMessage" variant="danger" show class="mt-3">
           ログインに失敗しました
         </b-alert>
@@ -76,8 +91,31 @@ export default {
           this.showErrorMessage = true
         })
     },
+    signInByGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((user) => {
+          localStorage.setItem("uid", user.user.uid)
+          this.$router.push("/")
+        })
+        .catch(() => {
+          this.showErrorMessage = true
+        })
+    },
   },
 }
 </script>
 
-<style></style>
+<style>
+.buttonImage {
+  background-image: url("../../static/btn_google_signin_light_normal_web.png");
+  background-repeat: no-repeat;
+  border-style: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+}
+</style>
