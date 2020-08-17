@@ -13,6 +13,11 @@ import Header from "@/components/Header.vue"
 import Loading from "@/components/Loading.vue"
 export default {
   components: { Header, Loading },
+  head() {
+    return {
+      title: "SHIORI",
+    }
+  },
 }
 </script>
 

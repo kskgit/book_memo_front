@@ -96,6 +96,7 @@ export default {
   computed: {},
   watch: {
     "pageNationItems.currentPage": async function () {
+      this.canStartSearch = true
       await this.getResult()
     },
   },
@@ -105,6 +106,7 @@ export default {
       this.getResult(research)
     },
     async getResult(research = false) {
+      // 日本語変換対策
       if (!this.canStartSearch) {
         return
       }
