@@ -1,5 +1,8 @@
 <template>
   <div>
+    <b-alert variant="secondary" show class="mt-3">
+      アカウント新規作成
+    </b-alert>
     <ValidationObserver v-slot="{ invalid }">
       <ValidationProvider v-slot="{ errors }" rules="required|email">
         <b-row>
@@ -31,6 +34,9 @@
       <b-button class="mt-3" :disabled="invalid" @click="signup()">
         アカウント作成
       </b-button>
+      <b-alert v-if="showErrorMessage" variant="danger" show class="mt-3">
+        アカウント作成に失敗しました
+      </b-alert>
       <b-row class="mt-3">
         <b-col>
           <nuxt-link to="/user/login">
@@ -50,6 +56,7 @@ export default {
     return {
       email: "",
       password: "",
+      showErrorMessage: false,
     }
   },
   methods: {
@@ -61,8 +68,8 @@ export default {
           localStorage.setItem("uid", user.user.uid)
           this.$router.push("/")
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
+          this.showErrorMessage = true
         })
     },
   },

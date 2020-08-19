@@ -1,5 +1,8 @@
 <template>
   <div>
+    <b-alert variant="secondary" show class="mt-3">
+      ログイン
+    </b-alert>
     <ValidationObserver v-slot="{ invalid }">
       <ValidationProvider v-slot="{ errors }" rules="email">
         <b-row>
@@ -51,7 +54,7 @@
         </b-alert>
         <b-row class="mt-3">
           <b-col>
-            <span>アカウントをお持ちで無い方は</span>
+            <span>アカウントの新規作成は</span>
             <nuxt-link to="/user/sign-up">
               こちら
             </nuxt-link>
