@@ -52,6 +52,13 @@ export default {
   */
   env: envSet,
   router: {
-    middleware: ['authenticated']
+    middleware: ['authenticated'],
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'custom',
+        path: '*',
+        component: resolve(__dirname, '@/pages/error.vue')
+      })
+    }
   }
 }
