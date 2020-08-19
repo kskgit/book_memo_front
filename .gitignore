@@ -90,4 +90,5 @@ sw.*
 *.swp
 
 .firebase/*
-./app/plugins/firebaseConfig.js
+
+app/plugins/firebaseConfig.js
