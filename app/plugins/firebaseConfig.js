@@ -2,7 +2,7 @@ import firebase from "firebase"
 
 firebase.initializeApp({
   apiKey: "AIzaSyCVVzzwLqUHOu9A2UZJzHoG5XB75HiZgBE",
-  authDomain: "book-memo-278412.firebaseapp.com",
+  authDomain: "book-memo.work",
   databaseURL: "https://book-memo-278412.firebaseio.com",
   projectId: "book-memo-278412",
   storageBucket: "book-memo-278412.appspot.com",
