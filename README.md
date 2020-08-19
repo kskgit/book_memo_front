@@ -1,22 +1,14 @@
-# front
+## blue_waletについて
+本の栞代わりになるミニWebサービスです。
+https://hatehate-nazenaze.hatenablog.com/entry/2020/08/19/123406?_ga=2.135628147.390248624.1597808049-246252316.1578668264
 
-> My astounding Nuxt.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+## 開発環境構築
+### パッケージをインストールする
+```
+yarn install
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+### 開発環境を立ち上げる
+```
+yarn dev
+```
