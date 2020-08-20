@@ -5,6 +5,11 @@
     </div>
     <b-row>
       <b-col>
+        <p>※978から始まるバーコードを読み取って下さい</p>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
         <b-button variant="info" @click="setInputMethodInput">
           読み取りが出来ない場合はこちら
         </b-button>
