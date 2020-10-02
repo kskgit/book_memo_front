@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  Firebase deploy:
+  firebase_deploy:
     runs-on: ubuntu-latest
     steps:
     #checkout master brunch
