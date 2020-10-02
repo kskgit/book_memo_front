@@ -12,7 +12,7 @@ jobs:
     #checkout master brunch
     - uses: actions/checkout@v2
       with:
-        repository: 'master'
+        repository: ${{ github.repository }}
     - name: Install Dependencies
       run: yarn
     - name: Build
