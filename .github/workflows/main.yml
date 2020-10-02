@@ -1,0 +1,19 @@
+name: Firebase deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Firebase deploy:
+    runs-on: ubuntu-latest
+    steps:
+    #checkout master brunch
+    - uses: actions/checkout@v2
+      with:
+        repository: 'master'
+    - name: Install Dependencies
+      run: yarn
+    - name: Build
+      run: yarn generate:prd
