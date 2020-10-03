@@ -12,7 +12,12 @@ jobs:
     #checkout master brunch
     - uses: actions/checkout@v2
       with:
-        repository: ${{ github.repository }}
+        repository: ${{ github.master }}
+    - name: setup Node
+      uses: actions/setup-node@v1
+      with: 
+        node-version: 10.x
+        registry-url: 'https://registry.npmjs.org'
     - name: Install Dependencies
       run: yarn
     - name: Build
