@@ -60,5 +60,10 @@ export default {
         component: resolve(__dirname, '@/pages/error.vue')
       })
     }
+  },
+  build: {
+    babel: {
+      compact: false
+    }
   }
 }
