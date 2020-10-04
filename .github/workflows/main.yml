@@ -39,8 +39,8 @@ jobs:
           node-version: "12.x"
 
       # Nuxt.js のビルドに .env を使用している場合、.env をサンプルから作成
-      - name: Copy .env
-        run: cp .env.example .env
+#       - name: Copy .env
+#         run: cp .env.example .env
 
       # Nuxt.js 依存性パッケージをインストール
       - name: npm install in Nuxt.js
@@ -48,4 +48,4 @@ jobs:
 
       # Nuxt.js で静的サイトを生成
       - name: Nuxt generate
-        run: npm run generate
+        run: npm run generate:prd
