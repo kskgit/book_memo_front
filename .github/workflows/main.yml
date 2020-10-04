@@ -18,7 +18,7 @@ jobs:
       with: 
         node-version: 10.x
         registry-url: 'https://registry.npmjs.org'
-#     - name: Install Dependencies
-#       run: yarn
+    - name: Install Dependencies
+      run: yarn install
     - name: Generate
-      run: yarn install | yarn generate:prd
+      run: yarn generate:prd
