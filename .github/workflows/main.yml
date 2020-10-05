@@ -6,46 +6,45 @@ on:
       - master
 
 jobs:
-#   firebase_deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#     #checkout master brunch
-#     - uses: actions/checkout@v2
-#       with:
-#         repository: ${{ github.master }}
-#     - name: setup Node
-#       uses: actions/setup-node@v1
-#       with: 
-#         node-version: 10.x
-#         registry-url: 'https://registry.npmjs.org'
-#     - name: Install Dependencies
-#       run: yarn install
-#     - name: Generate
-#       run: yarn generate:prd
-
-
-
-  firebase-deploy:
+  firebase_deploy:
     runs-on: ubuntu-latest
     steps:
-      # 最新のブランチをチェックアウト
-      - name: Checkout
-        uses: actions/checkout@v2
+    #checkout master brunch
+    - uses: actions/checkout@v2
+      with:
+        repository: ${{ github.master }}
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: "12.5"
+    - name: Install Dependencies
+      run: yarn install
+    - name: Generate
+      run: yarn generate:prd
 
-      # Nuxt.js ように Node.js をセットアップ
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
+
+
+#   firebase-deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       # 最新のブランチをチェックアウト
+#       - name: Checkout
+#         uses: actions/checkout@v2
+
+#       # Nuxt.js ように Node.js をセットアップ
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: "12.5"
 
       # Nuxt.js のビルドに .env を使用している場合、.env をサンプルから作成
 #       - name: Copy .env
 #         run: cp .env.example .env
 
       # Nuxt.js 依存性パッケージをインストール
-      - name: npm install in Nuxt.js
-        run: npm i
+#       - name: npm install in Nuxt.js
+#         run: npm i
 
-      # Nuxt.js で静的サイトを生成
-      - name: Nuxt generate
-        run: npm run generate:prd
+#       # Nuxt.js で静的サイトを生成
+#       - name: Nuxt generate
+#         run: npm run generate:prd
